@@ -1,0 +1,284 @@
+# GitHub Copilot Instructions for Therapist Practice Landing Page using Astro + TypeScript
+
+prompt_prefix: |
+  You are developing a modern, sleek, and professional landing page for a therapist practice using Astro and TypeScript.
+  Your code must adhere to best practices in accessibility, performance, animation, and use of TypeScript for type safety.
+  Use modern web technologies and design conventions—including TailwindCSS for styling, professional animation libraries, and a calming, trustworthy visual style.
+
+project:
+  name: modern-therapy-practice-website
+  type: landing-page
+  tech_stack:
+    frontend_framework: 
+      - name: Astro
+        reason: "Excellent for static/partially-hydrated landing pages with minimal JS"
+    language: 
+      - name: TypeScript
+        reason: "Strict type safety and modern JS features"
+    styling:
+      - name: TailwindCSS
+        reason: "For rapid development and consistent design system"
+    animation_libraries:
+      - name: GSAP
+        reason: "Professional-grade animations with excellent performance"
+      - name: Motion One
+        reason: "Lightweight alternative with good browser support"
+      - name: Framer Motion
+        reason: "For React components requiring complex animations"
+    scroll_effects:
+      - name: Locomotive Scroll
+        reason: "Smooth scrolling with parallax capabilities"
+    performance:
+      - name: Optimized assets
+      - name: Lazy-loading
+      - name: Responsive images
+
+typescript_conventions:
+  general:
+    - "Use .ts for logic/utils and .tsx for React components."
+    - "Use .astro for Astro components, but type all props and data."
+    - "Enable 'strict' mode and noImplicitAny in tsconfig."
+    - "Define interfaces and types in src/types/ and import as needed."
+    - "Always explicitly type component props, API responses, and exported functions."
+    - "Prefer interface over type for objects, type for unions and primitives."
+    - "Use generics for reusable logic and components."
+    - "Avoid using 'any'; use unknown or proper types instead."
+    - "Use type-safe fetch and API calls, and validate at runtime if needed (e.g. zod)."
+    - "Leverage TypeScript for accessibility by typing ARIA attributes and event handlers."
+    - "Prefer const for variables and readonly for object/array immutability."
+    - "Use type assertions sparingly and only when safe."
+    - "Document all exported types and interfaces with JSDoc."
+    - "Use enums or unions for known value sets."
+    - "Always write return types for functions and async methods."
+    - "Enable incremental builds in tsconfig for performance."
+    - "Organize types logically; avoid duplicating types."
+    - "Use import type for importing only types in Astro files."
+    - "For Astro props, define a Props interface and destructure Astro.props with proper typing."
+    - "Ensure all forms and input handlers are type-safe."
+
+  examples:
+    astro_props:
+      description: "Astro component with typed props"
+      code: |
+        ---
+        import type { Props } from '../types/HeroProps';
+        const { title, description, items } = Astro.props as Props;
+        ---
+        <section>
+          <h1>{title}</h1>
+          {description && <p>{description}</p>}
+          <ul>
+            {items.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+    react_component:
+      description: "React component in .tsx with typed props"
+      code: |
+        import React from 'react';
+
+        interface ButtonProps {
+          children: React.ReactNode;
+          onClick: () => void;
+          disabled?: boolean;
+        }
+
+        export const Button: React.FC<ButtonProps> = ({ children, onClick, disabled = false }) => (
+          <button onClick={onClick} disabled={disabled} className="btn">
+            {children}
+          </button>
+        );
+    generic_util:
+      description: "Typed utility function"
+      code: |
+        export function getFirstItem<T>(items: T[]): T | undefined {
+          return items[0];
+        }
+    external_data_validation:
+      description: "Using zod for runtime validation"
+      code: |
+        import { z } from 'zod';
+
+        export const ContactSchema = z.object({
+          name: z.string().min(1),
+          email: z.string().email(),
+          message: z.string().min(10),
+        });
+
+        export type ContactForm = z.infer<typeof ContactSchema>;
+    strict_tsconfig:
+      description: "Recommended compiler options in tsconfig.json"
+      code: |
+        {
+          "compilerOptions": {
+            "strict": true,
+            "noImplicitAny": true,
+            "moduleResolution": "node",
+            "resolveJsonModule": true,
+            "esModuleInterop": true,
+            "jsx": "react-jsx",
+            "types": ["astro/client"],
+            "incremental": true
+          }
+        }
+
+design_principles:
+  color_palette:
+    primary: "#4A6FA5"
+    secondary: "#94B0DA"
+    accent: "#8E9E82"
+    neutral_light: "#F2F4F8"
+    neutral_dark: "#333844"
+  typography:
+    headings: "Sans-serif (e.g., 'Raleway', 'Poppins')"
+    body: "Clean, readable sans-serif (e.g., 'Open Sans', 'Inter')"
+    characteristics: "Clear hierarchy, adequate line-height, accessible font sizes"
+  spacing_system:
+    - "Consistent spacing using Tailwind's default scale"
+    - "Generous whitespace for readability"
+  imagery:
+    - "Authentic, diverse photographs"
+    - "Calming natural elements"
+    - "Avoid clichés"
+
+animation_guidelines:
+  principles:
+    - "Subtle, purpose-driven transitions"
+    - "Respect reduced motion preferences"
+    - "Performance-focused"
+  examples:
+    - "Gentle fade-in on scroll"
+    - "Soft hover effects"
+    - "Smooth section/page transitions"
+    - "Micro-interactions for form elements"
+
+page_sections:
+  hero:
+    - "Welcoming headline"
+    - "Brief, compassionate intro"
+    - "Clear CTA"
+    - "Professional image or subtle background animation"
+  about:
+    - "Practice introduction"
+    - "Therapist credentials"
+    - "Values and philosophy"
+  services:
+    - "Therapy categories"
+    - "Brief descriptions"
+    - "Visual distinction"
+  testimonials:
+    - "Anonymous, specific, privacy-respecting"
+    - "Tasteful animated transitions"
+  insurance_information:
+    - "Accepted providers"
+    - "Self-pay options"
+    - "Clear costs"
+  contact:
+    - "Simple, accessible form (fully typed)"
+    - "Map/location"
+    - "Hours, response times"
+    - "Emergency resources"
+  call_to_action:
+    - "Clear next steps"
+    - "Multiple contact options"
+    - "Reassurance"
+
+accessibility_requirements:
+  - "WCAG 2.1 AA minimum standard"
+  - "Proper heading hierarchy"
+  - "Sufficient color contrast (>4.5:1)"
+  - "Alt text for images"
+  - "Keyboard navigation"
+  - "Focus indicators"
+  - "ARIA attributes as needed"
+  - "Respect reduced motion"
+
+performance_considerations:
+  - "Core Web Vitals focus"
+  - "Optimized images"
+  - "Minimal JS, loaded after critical content"
+  - "Responsive, mobile-first design"
+  - "Progressive enhancement"
+
+content_guidelines:
+  tone:
+    - "Warm, compassionate, professional"
+    - "Clear, jargon-free"
+    - "Inclusive and welcoming"
+    - "Respect courage in seeking therapy"
+  language:
+    - "Person-first language for mental health"
+    - "Avoid stigmatizing terms"
+    - "Balance expertise and approachability"
+
+responsive_design:
+  - "Mobile-first"
+  - "Thoughtful breakpoints"
+  - "Touch-friendly targets"
+  - "Test on real devices"
+
+examples:
+  hero_section:
+    description: "Modern hero section with TS-typed props and fade-in"
+    code: |
+      ---
+      import type { HeroProps } from '../types/HeroProps';
+      const { title, description, ctaLabel, ctaHref } = Astro.props as HeroProps;
+      ---
+      <section class="relative min-h-screen flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+          <div class="absolute inset-0 bg-gradient-to-r from-neutral-dark/30 to-primary/30 z-10"></div>
+          <img 
+            src="/images/calm-office-space.jpg" 
+            alt="" 
+            class="w-full h-full object-cover"
+            data-scroll 
+            data-scroll-speed="-1"
+          />
+        </div>
+        <div class="container mx-auto px-6 relative z-20">
+          <div class="max-w-xl" data-animation="fade-in">
+            <h1 class="text-5xl font-heading font-light text-white mb-6">
+              {title}
+            </h1>
+            <p class="text-lg text-neutral-light mb-8">
+              {description}
+            </p>
+            <a href={ctaHref} class="btn btn-primary px-8 py-3">
+              {ctaLabel}
+            </a>
+          </div>
+        </div>
+      </section>
+  animation_example:
+    description: "Scroll-triggered fade-in with GSAP, respecting TS and reduced motion"
+    code: |
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+          document.querySelectorAll<HTMLElement>('[data-animation]').forEach(el => {
+            el.style.opacity = '1';
+          });
+          return;
+        }
+        gsap.utils.toArray<HTMLElement>('[data-animation="fade-in"]').forEach(element => {
+          gsap.fromTo(element, 
+            { opacity: 0, y: 30 }, 
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: element,
+                start: "top bottom-=100px",
+                toggleActions: "play none none none"
+              }
+            }
+          );
+        });
+      });

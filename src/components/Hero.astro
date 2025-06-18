@@ -1,0 +1,35 @@
+---
+import type { HeroProps } from '../types/HeroProps';
+const hero: HeroProps = {
+  title: 'Compassionate Therapy for Modern Life',
+  description: 'A welcoming, professional space for your mental well-being. Evidence-based, inclusive, and tailored to you.',
+  ctaLabel: 'Book a Consultation',
+  ctaHref: '#contact',
+};
+const { title, description, ctaLabel, ctaHref } = hero;
+---
+<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-r from-[#333844]/30 to-[#4A6FA5]/30">
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/images/calm-office-space.jpg" 
+      alt="Calm, welcoming therapy office" 
+      class="w-full h-full object-cover" 
+      data-scroll 
+      data-scroll-speed="-1"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-[#333844]/60 to-[#4A6FA5]/40 z-10"></div>
+  </div>
+  <div class="container mx-auto px-6 relative z-20">
+    <div class="max-w-xl" data-animation="fade-in">
+      <h1 class="text-5xl font-heading font-light text-white mb-6">
+        {title}
+      </h1>
+      <p class="text-lg text-neutral_light mb-8">
+        {description}
+      </p>
+      <a href={ctaHref} class="btn btn-primary px-8 py-3">
+        {ctaLabel}
+      </a>
+    </div>
+  </div>
+</section>

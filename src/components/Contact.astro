@@ -1,0 +1,41 @@
+---
+import type { ContactProps } from '../types/ContactProps';
+const contact: ContactProps = {
+  address: '123 Main St, Suite 200, Your City, ST 12345',
+  hours: 'Mon–Fri: 9am–6pm',
+  responseTime: 'We respond within 1 business day.',
+  emergencyResources: 'If you are in crisis, call 988 or visit your nearest emergency room.',
+};
+---
+<section class="relative py-20 bg-neutral_light overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 left-0 w-1/3 h-1/3 bg-gradient-to-br from-primary/10 to-accent/0 rounded-full blur-2xl"></div>
+    <div class="absolute bottom-0 right-0 w-1/4 h-1/4 bg-gradient-to-tr from-secondary/10 to-primary/0 rounded-full blur-2xl"></div>
+  </div>
+  <div class="container mx-auto px-6 max-w-2xl relative z-10">
+    <h2 id="contact-heading" class="text-3xl md:text-4xl font-heading text-primary mb-8 font-semibold text-center" data-animation="fade-in">Contact</h2>
+    <div class="bg-white rounded-2xl shadow-lg p-8" data-animation="fade-in">
+      <address class="not-italic mb-4 text-neutral_dark">
+        <strong>Address:</strong> {contact.address}
+      </address>
+      <p class="mb-2 text-neutral_dark"><strong>Hours:</strong> {contact.hours}</p>
+      <p class="mb-2 text-neutral_dark"><strong>Response Time:</strong> {contact.responseTime}</p>
+      <p class="text-sm text-secondary mt-4">{contact.emergencyResources}</p>
+    </div>
+    <form class="mt-8 space-y-4" aria-label="Contact form" autocomplete="off">
+      <div>
+        <label for="name" class="block text-neutral_dark font-medium mb-1">Name</label>
+        <input id="name" name="name" type="text" required class="w-full rounded border border-neutral_dark/20 px-4 py-2 focus:outline-primary" />
+      </div>
+      <div>
+        <label for="email" class="block text-neutral_dark font-medium mb-1">Email</label>
+        <input id="email" name="email" type="email" required class="w-full rounded border border-neutral_dark/20 px-4 py-2 focus:outline-primary" />
+      </div>
+      <div>
+        <label for="message" class="block text-neutral_dark font-medium mb-1">Message</label>
+        <textarea id="message" name="message" required rows="4" class="w-full rounded border border-neutral_dark/20 px-4 py-2 focus:outline-primary"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary px-8 py-3">Send Message</button>
+    </form>
+  </div>
+</section>

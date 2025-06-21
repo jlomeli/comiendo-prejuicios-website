@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+body {
+  font-family: 'Open Sans', 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', 'Poppins', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.btn {
+  /* Use Tailwind classes directly in your components for best results */
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px 0 rgb(74 111 165 / 0.08);
+  transition: all 0.2s;
+  font-family: 'Raleway', 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+input, textarea {
+  border-radius: 0.5rem;
+  border: 1px solid #33384433;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 1px 4px 0 rgb(74 111 165 / 0.04);
+  transition: box-shadow 0.2s;
+}
+
+::selection {
+  background: #4A6FA51A;
+}

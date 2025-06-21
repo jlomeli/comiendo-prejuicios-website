@@ -10,8 +10,22 @@ import '../styles/global.css';
     <meta name="description" content="A modern, welcoming therapist practice landing page. Professional, accessible, and calming design." />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-neutral_light text-neutral_dark font-body min-h-screen">
-    <slot />
+  <body class="bg-neutral_light text-neutral_dark font-body min-h-screen antialiased selection:bg-primary/10">
+    <div class="relative min-h-screen flex flex-col">
+      <main class="flex-1 w-full">
+        <slot />
+      </main>
+      <footer class="bg-white/80 border-t border-neutral_dark/10 py-8 text-center text-neutral_dark text-sm mt-12 shadow-inner">
+        <span>&copy; {new Date().getFullYear()} Modern Therapy Practice. All rights reserved.</span>
+      </footer>
+      <div class="pointer-events-none fixed inset-0 z-[-1]">
+        <div class="absolute top-0 left-0 w-2/3 h-1/2 bg-gradient-to-br from-primary/10 to-accent/0 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-1/2 h-1/3 bg-gradient-to-tr from-secondary/10 to-primary/0 rounded-full blur-2xl"></div>
+      </div>
+    </div>
   </body>
 </html>

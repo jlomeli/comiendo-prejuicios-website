@@ -1,0 +1,24 @@
+---
+import type { AboutProps } from '../types/AboutProps';
+const about: AboutProps = {
+  name: 'Dr. Alex Rivera',
+  credentials: 'PhD, Licensed Clinical Psychologist',
+  intro: 'With over 10 years of experience, Dr. Rivera is dedicated to providing compassionate, evidence-based therapy in a safe and inclusive environment.',
+  philosophy: 'I believe in meeting each person where they are, honoring their unique story, and empowering them to create meaningful change. My approach is collaborative, respectful, and rooted in the latest research.',
+  imageUrl: '/images/therapist-portrait.jpg',
+};
+const { name, credentials, intro, philosophy, imageUrl } = about;
+---
+<section class="py-16 bg-neutral_light" aria-labelledby="about-heading">
+  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
+    <div class="flex-shrink-0 w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg border-4 border-primary" data-animation="fade-in">
+      <img src={imageUrl} alt={`Portrait of ${name}`} class="w-full h-full object-cover" loading="lazy" />
+    </div>
+    <div class="max-w-2xl" data-animation="fade-in">
+      <h2 id="about-heading" class="text-3xl font-heading text-primary mb-2 font-semibold">About {name}</h2>
+      <p class="text-secondary font-medium mb-4">{credentials}</p>
+      <p class="text-lg text-neutral_dark mb-4">{intro}</p>
+      <p class="text-base text-neutral_dark">{philosophy}</p>
+    </div>
+  </div>
+</section>

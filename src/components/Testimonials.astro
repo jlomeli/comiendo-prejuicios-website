@@ -1,0 +1,28 @@
+---
+import type { TestimonialsProps } from '../types/TestimonialsProps';
+const testimonials: TestimonialsProps = {
+  testimonials: [
+    { quote: 'I felt truly heard and supported. Therapy here changed my life.', author: 'Anonymous' },
+    { quote: 'A safe, welcoming space where I could be myself.', author: 'Anonymous' },
+    { quote: 'Professional, compassionate, and effective.', author: 'Anonymous' },
+  ],
+};
+---
+<section class="relative py-20 bg-neutral_light overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/4 left-0 w-1/3 h-1/3 bg-gradient-to-br from-accent/10 to-primary/0 rounded-full blur-2xl"></div>
+    <div class="absolute bottom-0 right-0 w-1/4 h-1/4 bg-gradient-to-tr from-secondary/10 to-primary/0 rounded-full blur-2xl"></div>
+  </div>
+  <div class="container mx-auto px-6 relative z-10">
+    <h2 id="testimonials-heading" class="text-3xl md:text-4xl font-heading text-primary mb-12 font-semibold text-center" data-animation="fade-in">Testimonials</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.testimonials.map(testimonial => (
+        <blockquote class="bg-white rounded-2xl shadow-lg p-8 relative transition-shadow duration-300 hover:shadow-xl" data-animation="fade-in">
+          <svg class="absolute -top-6 left-6 w-10 h-10 text-accent opacity-30" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.17 15C7.06 14.67 7 14.34 7 14c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .34-.06.67-.17 1H7.17z"></path></svg>
+          <p class="text-lg italic text-neutral_dark mb-4">“{testimonial.quote}”</p>
+          <footer class="text-secondary text-sm">{testimonial.author}</footer>
+        </blockquote>
+      ))}
+    </div>
+  </div>
+</section>

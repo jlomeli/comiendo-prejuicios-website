@@ -6,22 +6,19 @@ const insurance: InsuranceProps = {
   costs: 'Session fees start at $120. Contact us for details.',
 };
 ---
-<section class="relative py-20 bg-white overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-0 left-1/2 w-1/3 h-1/3 bg-gradient-to-br from-primary/10 to-accent/0 rounded-full blur-2xl"></div>
-    <div class="absolute bottom-0 right-0 w-1/4 h-1/4 bg-gradient-to-tr from-secondary/10 to-primary/0 rounded-full blur-2xl"></div>
-  </div>
-  <div class="container mx-auto px-6 max-w-2xl relative z-10">
-    <h2 id="insurance-heading" class="text-3xl md:text-4xl font-heading text-primary mb-8 font-semibold text-center" data-animation="fade-in">Insurance & Fees</h2>
-    <div class="bg-neutral_light rounded-2xl shadow-lg p-8" data-animation="fade-in">
-      <h3 class="text-xl font-heading font-medium mb-2 text-neutral_dark">Accepted Providers</h3>
-      <ul class="mb-4 list-disc list-inside text-neutral_dark">
-        {insurance.providers.map(provider => (
-          <li>{provider}</li>
-        ))}
-      </ul>
-      <p class="mb-2 text-neutral_dark">{insurance.selfPayInfo}</p>
-      <p class="text-neutral_dark font-semibold">{insurance.costs}</p>
-    </div>
+<section id="insurance" aria-labelledby="insurance-heading" class="py-16 px-4 bg-gradient-to-br from-primary/5 to-white">
+  <div class="max-w-4xl mx-auto">
+    <h2 id="insurance-heading" class="text-3xl font-bold text-primary mb-8">Insurance & Payment</h2>
+    <p class="text-neutral-dark mb-4">
+      We accept most major insurance plans and offer flexible payment options. Please contact us to verify your coverage.
+    </p>
+    <ul class="flex flex-wrap gap-4">
+      {insurance.providers.map(provider => (
+        <li class="bg-white rounded shadow px-4 py-2">{provider}</li>
+      ))}
+      <li class="bg-white rounded shadow px-4 py-2">Self-Pay</li>
+    </ul>
+    <p class="mt-4 text-neutral-dark">{insurance.selfPayInfo}</p>
+    <p class="text-neutral-dark font-semibold">{insurance.costs}</p>
   </div>
 </section>

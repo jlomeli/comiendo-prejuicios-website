@@ -8,28 +8,18 @@ const hero: HeroProps = {
 };
 const { title, description, ctaLabel, ctaHref } = hero;
 ---
-<section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-r from-[#333844]/30 to-[#4A6FA5]/30">
-  <div class="absolute inset-0 z-0">
-    <img 
-      src="/images/calm-office-space.jpg" 
-      alt="Calm, welcoming therapy office" 
-      class="w-full h-full object-cover" 
-      data-scroll 
-      data-scroll-speed="-1"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-[#333844]/60 to-[#4A6FA5]/40 z-10"></div>
-  </div>
-  <div class="container mx-auto px-6 relative z-20">
-    <div class="max-w-xl" data-animation="fade-in">
-      <h1 class="text-5xl font-heading font-light text-white mb-6">
-        {title}
-      </h1>
-      <p class="text-lg text-neutral_light mb-8">
-        {description}
-      </p>
-      <a href={ctaHref} class="btn btn-primary px-8 py-3">
-        {ctaLabel}
-      </a>
-    </div>
-  </div>
+<section aria-labelledby="hero-heading" class="relative flex flex-col items-center justify-center min-h-[60vh] bg-gradient-to-br from-primary/10 to-neutral-100 py-16 px-4 text-center">
+  <h1 id="hero-heading" class="text-4xl md:text-5xl font-bold mb-4 text-primary">{title}</h1>
+  <p class="text-lg md:text-xl text-neutral-dark mb-8 max-w-2xl mx-auto">{description}</p>
+  <img
+    src="/images/calm-office-space.jpg"
+    alt="Calm, welcoming therapist office with natural light"
+    loading="lazy"
+    class="rounded-lg shadow-lg mx-auto mb-8 max-w-full h-auto"
+    width="600"
+    height="400"
+  />
+  <a href={ctaHref} class="inline-block bg-primary text-white px-8 py-3 rounded shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition font-semibold">
+    {ctaLabel}
+  </a>
 </section>

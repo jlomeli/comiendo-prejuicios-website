@@ -32,3 +32,13 @@ input, textarea {
 ::selection {
   background: #4A6FA51A;
 }
+
+.read-more-content {
+  max-height: 4.5em; /* Approximately 3 lines of text */
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.read-more-content.expanded {
+  max-height: none;
+}

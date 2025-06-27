@@ -2,19 +2,25 @@
 import { getEntry } from 'astro:content';
 
 const claudia = await getEntry('team', 'claudia-ornelas');
-const { name, credentials, intro, philosophy, imageUrl } = claudia.data;
+const { name, credentials, intro, philosophy, missionStatement, imageUrl, education, specialties } = claudia.data;
 ---
-<section id="about" aria-labelledby="about-heading" class="py-20 bg-white relative overflow-hidden">
-  <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-to-br from-primary/10 to-accent/0 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-10 relative z-10">
-    <div class="flex-shrink-0 w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg border-4 border-primary" data-animation="fade-in">
-      <img src={imageUrl} alt="Portrait of Dr. Alex Rivera, licensed clinical psychologist" class="w-full h-full object-cover" loading="lazy" />
-    </div>
-    <div class="max-w-2xl" data-animation="fade-in">
-      <h2 id="about-heading" class="text-3xl font-heading text-primary mb-2 font-semibold">About {name}</h2>
-      <p class="text-secondary font-medium mb-4">{credentials}</p>
-      <p class="text-lg text-neutral_dark mb-4">{intro}</p>
-      <p class="text-base text-neutral_dark">{philosophy}</p>
+<section id="about" aria-labelledby="about-heading" class="py-20 bg-gradient-to-br from-white to-primary/5 relative overflow-hidden">
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="relative" data-animation="fade-in">
+        <div class="absolute inset-0 bg-primary/10 rounded-3xl transform -rotate-3 translate-x-4 translate-y-4"></div>
+        <div class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-primary/50">
+          <img src={imageUrl} alt={`Portrait of ${name}, ${credentials}`} class="w-full h-auto object-cover" loading="lazy" />
+        </div>
+      </div>
+      <div class="max-w-2xl" data-animation="fade-in">
+        <h2 id="about-heading" class="text-4xl font-heading text-primary mb-4 font-semibold">About {name}</h2>
+        <p class="text-secondary font-medium text-xl mb-6">{credentials}</p>
+        <p class="text-lg text-neutral_dark mb-6">{intro}</p>
+        <a href="/about-claudia" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary_dark transition-colors duration-300 mt-6">
+          Learn More About {name}
+        </a>
+      </div>
     </div>
   </div>
 </section>

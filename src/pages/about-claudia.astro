@@ -1,0 +1,59 @@
+---
+import { getEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const claudia = await getEntry('team', 'claudia-ornelas');
+const { name, credentials, intro, philosophy, missionStatement, imageUrl, education, specialties } = claudia.data;
+---
+<Layout title={`About ${name}`}>
+  <main class="container mx-auto px-6 py-20">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-10 mb-12">
+        <div class="flex-shrink-0 w-48 h-48 rounded-full overflow-hidden shadow-lg border-4 border-primary/50">
+          <img src={imageUrl} alt={`Portrait of ${name}`} class="w-full h-full object-cover" loading="lazy" />
+        </div>
+        <div>
+          <h1 class="text-4xl font-heading text-primary mb-2 font-semibold">{name}</h1>
+          <p class="text-secondary font-medium text-xl mb-4">{credentials}</p>
+          <p class="text-lg text-neutral_dark">{intro}</p>
+        </div>
+      </div>
+
+      <div class="prose lg:prose-xl mx-auto text-left">
+        <h2 class="text-3xl font-heading text-primary mb-4 font-semibold">My Philosophy</h2>
+        <p>{philosophy}</p>
+
+        {missionStatement && (
+          <>
+            <h2 class="text-3xl font-heading text-primary mt-8 mb-4 font-semibold">My Mission</h2>
+            <p>{missionStatement}</p>
+          </>
+        )}
+
+        {education && education.length > 0 && (
+          <>
+            <h2 class="text-3xl font-heading text-primary mt-8 mb-4 font-semibold">Education</h2>
+            <ul>
+              {education.map((edu: string) => <li>{edu}</li>)}
+            </ul>
+          </>
+        )}
+
+        {specialties && specialties.length > 0 && (
+          <>
+            <h2 class="text-3xl font-heading text-primary mt-8 mb-4 font-semibold">Specialties</h2>
+            <ul>
+              {specialties.map((spec: string) => <li>{spec}</li>)}
+            </ul>
+          </>
+        )}
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="/#contact" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary_dark transition-colors duration-300">
+          Contact {name}
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

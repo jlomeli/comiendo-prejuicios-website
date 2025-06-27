@@ -11,6 +11,21 @@ const servicesCollection = defineCollection({
   }),
 });
 
+const teamCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    credentials: z.string(),
+    intro: z.string(),
+    philosophy: z.string(),
+    missionStatement: z.string().optional(),
+    imageUrl: z.string(),
+    education: z.array(z.string()).optional(),
+    specialties: z.array(z.string()).optional(),
+  }),
+});
+
 export const collections = {
   'services': servicesCollection,
+  'team': teamCollection,
 };

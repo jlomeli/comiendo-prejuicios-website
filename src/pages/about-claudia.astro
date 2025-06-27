@@ -34,7 +34,7 @@ const { name, credentials, intro, philosophy, missionStatement, imageUrl, educat
           <>
             <h2 class="text-3xl font-heading text-primary mt-8 mb-4 font-semibold">Education</h2>
             <ul>
-              {education.map(edu => <li>{edu}</li>)}
+              {education.map((edu: string) => <li>{edu}</li>)}
             </ul>
           </>
         )}
@@ -43,7 +43,7 @@ const { name, credentials, intro, philosophy, missionStatement, imageUrl, educat
           <>
             <h2 class="text-3xl font-heading text-primary mt-8 mb-4 font-semibold">Specialties</h2>
             <ul>
-              {specialties.map(spec => <li>{spec}</li>)}
+              {specialties.map((spec: string) => <li>{spec}</li>)}
             </ul>
           </>
         )}

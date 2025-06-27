@@ -1,13 +1,8 @@
 ---
-import type { ServicesProps } from '../types/ServicesProps';
-const services: ServicesProps = {
-  services: [
-    { title: 'Individual Therapy', description: 'Personalized, evidence-based support for adults and teens.', icon: '/icons/user.svg' },
-    { title: 'Couples Counseling', description: 'Strengthen communication and connection in your relationship.', icon: '/icons/heart' },
-    { title: 'Family Therapy', description: 'Foster understanding and healing for families of all kinds.', icon: '/icons/users' },
-    { title: 'Teletherapy', description: 'Convenient, secure online sessions from the comfort of your home.', icon: '/icons/video' },
-  ],
-};
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+const services = await getCollection('services');
 ---
 <section id="services" aria-labelledby="services-heading" class="relative py-20 bg-gradient-to-br from-primary/5 to-white overflow-hidden">
   <div class="absolute inset-0 pointer-events-none">
@@ -16,14 +11,46 @@ const services: ServicesProps = {
   </div>
   <div class="container mx-auto px-6 relative z-10">
     <h2 id="services-heading" class="text-3xl md:text-4xl font-heading text-primary mb-12 font-semibold text-center" data-animation="fade-in">Our Services</h2>
-    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {services.services.map(service => (
-        <li tabindex="0" class="bg-neutral_light rounded-2xl shadow-lg p-8 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl focus-within:ring-2 focus-within:ring-primary outline-none" data-animation="fade-in">
-          <div class="mb-5 text-primary">
-            <img src={service.icon.startsWith('/') ? service.icon : `/icons/${service.icon}.svg`} alt="" aria-hidden="true" class="w-10 h-10 mb-5 mx-auto" loading="lazy" />
+    <ul class="space-y-16">
+      {services.map((service: CollectionEntry<'services'>, index: number) => (
+        <li 
+          class:list={[
+            "group",
+            "md:grid md:grid-cols-2 md:gap-12 items-center",
+          ]}
+        >
+          <div class:list={["relative", { "md:order-2": index % 2 === 0 }]}>
+            <div class:list={[
+              "absolute w-full h-full bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl transform transition-transform duration-500 group-hover:scale-105",
+              { "-rotate-3": index % 2 === 0, "rotate-3": index % 2 !== 0 },
+            ]}></div>
+            <div class="relative bg-neutral_light rounded-2xl shadow-lg p-8 text-center md:text-left flex flex-col h-full">
+              <div class="flex-grow">
+                <div class="mb-5 text-primary md:float-left md:mr-6">
+                  <img src={service.data.icon} alt="" aria-hidden="true" class="w-12 h-12 mx-auto md:mx-0" loading="lazy" />
+                </div>
+                <h3 class="text-2xl font-heading font-semibold mb-3 text-neutral_dark">{service.data.title}</h3>
+                <p class="text-base text-neutral_dark opacity-90 mb-6">{service.data.description}</p>
+              </div>
+              <div class="mt-auto">
+                <a href={`/services/${service.slug}`} class="inline-block bg-primary text-white font-bold py-2 px-6 rounded-full hover:bg-primary_dark transition-colors duration-300">
+                  Learn More
+                </a>
+              </div>
+            </div>
           </div>
-          <h3 class="text-xl font-heading font-medium mb-2 text-neutral_dark">{service.title}</h3>
-          <p class="text-base text-neutral_dark opacity-90">{service.description}</p>
+          <div class:list={["mt-8 md:mt-0", { "md:order-1": index % 2 === 0 }]}>
+            {service.data.image && (
+              <img
+                src={service.data.image}
+                alt={`Illustration for ${service.data.title}`}
+                class="rounded-lg shadow-xl w-full h-auto object-cover aspect-video"
+                loading="lazy"
+                width="500"
+                height="281"
+              />
+            )}
+          </div>
         </li>
       ))}
     </ul>

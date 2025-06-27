@@ -1,0 +1,37 @@
+<!-- src/pages/services/[slug].astro -->
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service: CollectionEntry<'services'>) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: CollectionEntry<'services'>;
+}
+
+const { service } = Astro.props;
+const { title, description, icon } = service.data;
+---
+<Layout title={title}>
+  <main class="container mx-auto px-6 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+        <img src={icon} alt="" aria-hidden="true" class="w-20 h-20 mb-8 mx-auto" />
+        <h1 class="text-4xl md:text-5xl font-heading text-primary mb-4 font-semibold">{title}</h1>
+        <p class="text-xl text-neutral_dark opacity-90 mb-12">{description}</p>
+        
+        <div class="prose lg:prose-xl mx-auto text-left">
+            <p>More detailed information about {title} will go here. We can describe the process, benefits, and what to expect during a session.</p>
+            <p>This content can be expanded using Markdown in the service's content file.</p>
+        </div>
+
+        <a href="/" class="mt-12 inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary_dark transition-colors duration-300">Back to Home</a>
+    </div>
+  </main>
+</Layout>

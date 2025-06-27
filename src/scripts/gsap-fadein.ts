@@ -27,4 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
+
+  const serviceList = document.querySelector('#services ul');
+  if (serviceList) {
+    gsap.fromTo(serviceList.children, 
+      { opacity: 0, y: 30 }, 
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.2, // Add stagger effect
+        scrollTrigger: {
+          trigger: serviceList,
+          start: "top bottom-=100px",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  }
 });

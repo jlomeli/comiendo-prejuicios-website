@@ -2,7 +2,7 @@
 import { getEntry } from 'astro:content';
 
 const claudia = await getEntry('team', 'claudia-ornelas');
-const { name, credentials, intro, philosophy, missionStatement, imageUrl, education, specialties } = claudia.data;
+const { name, credentials, intro, imageUrl } = claudia.data;
 ---
 <section id="about" aria-labelledby="about-heading" class="py-20 bg-gradient-to-br from-white to-primary/5 relative overflow-hidden">
   <div class="container mx-auto px-6 relative z-10">

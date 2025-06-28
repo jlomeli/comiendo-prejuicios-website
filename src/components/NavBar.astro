@@ -1,19 +1,99 @@
-<nav aria-label="Primary Navigation" class="bg-white shadow sticky top-0 z-40">
-  <ul class="flex gap-6 px-8 py-4">
-    <li>
-      <a href="#about" class="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded transition">About</a>
-    </li>
-    <li>
-      <a href="#services" class="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded transition">Services</a>
-    </li>
-    <li>
-      <a href="#testimonials" class="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded transition">Testimonials</a>
-    </li>
-    <li>
-      <a href="#insurance" class="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded transition">Insurance</a>
-    </li>
-    <li>
-      <a href="#contact" class="focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded transition">Contact</a>
-    </li>
-  </ul>
+import { navigationConfig } from '../config/navigation';
+import type { NavItem } from '../types/NavigationProps';
+
+const navItems: NavItem[] = navigationConfig.items;
+
+<nav aria-label="Primary Navigation" class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-40">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo/Brand -->
+      <div class="flex-shrink-0">
+        <a href="/" class="text-xl font-heading font-semibold text-primary">
+          Comiendo Prejuicios
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <ul class="hidden md:flex md:items-center md:space-x-8">
+        {navItems.map((item: NavItem) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-neutral_dark hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 transition-colors duration-200"
+              aria-label={item.ariaLabel}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="menu-button"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-neutral_dark hover:text-primary hover:bg-neutral_light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <!-- Icon when menu is closed -->
+        <svg
+          class="block h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state -->
+  <div
+    id="menu-overlay"
+    class="hidden fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm md:hidden z-40"
+    aria-hidden="true"
+  ></div>
+  
+  <div
+    id="mobile-menu"
+    class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out md:hidden z-50"
+  >
+    <div class="px-4 pt-8 pb-6">
+      <ul class="space-y-4">
+        {navItems.map((item: NavItem) => (
+          <li>
+            <a
+              href={item.href}
+              class="block text-neutral_dark hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded px-2 py-1 transition-colors duration-200"
+              aria-label={item.ariaLabel}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
 </nav>
+
+<script>
+  import '../scripts/mobile-menu';
+</script>
+
+<style>
+  @media (max-width: 768px) {
+    body.overflow-hidden {
+      overflow: hidden;
+    }
+  }
+</style>

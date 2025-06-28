@@ -23,53 +23,74 @@ export default tseslint.config(
       parserOptions: {
         parser: tseslint.parser,
         extraFileExtensions: ['.astro'],
+        project: true,
+        tsconfigRootDir: process.cwd(),
       },
     },
     rules: {
-      // Disable linting for generated files within .astro
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-empty-object-type': 'off',
-      '@typescript-eslint/triple-slash-reference': 'off',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
 
   // Configuration for TypeScript files
   {
-    files: ['**/*.ts'],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: './tsconfig.json',
+        project: true,
+        tsconfigRootDir: process.cwd(),
       },
+    },
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
+      '@typescript-eslint/await-thenable': 'error',
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
 
-  // Configuration for JavaScript files (like config files)
+  // Configuration for JavaScript config files
   {
-    files: ['postcss.config.js', 'tailwind.config.js'],
+    files: ['*.config.{js,mjs,cjs}', 'postcss.config.js', 'tailwind.config.js'],
     languageOptions: {
       globals: {
         node: true,
       },
     },
     rules: {
-      // Disable specific rules that might conflict with config files
-      'no-undef': 'off', // 'module' is defined by Node.js
+      '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+      'no-undef': 'off',
     },
   },
 
-  // Configuration for client-side JavaScript files
+  // Configuration for client-side scripts
   {
-    files: ['src/scripts/read-more.js'],
+    files: ['src/scripts/**/*.{js,ts}'],
     languageOptions: {
       globals: {
+        window: true,
         document: true,
       },
     },
+    rules: {
+      'no-restricted-globals': 'off',
+    },
   },
 
-  // Ignore generated files
+  // Ignore patterns
   {
-    ignores: ['.astro/**'],
+    ignores: [
+      '.astro/**',
+      'dist/**',
+      'node_modules/**',
+      '*.min.js',
+      'coverage/**',
+      'eslint.config.mjs',
+    ],
   },
 );

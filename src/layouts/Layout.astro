@@ -1,18 +1,92 @@
 ---
 // Astro layout for the therapist landing page
 import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Comiendo Prejuicios - Therapy and Counseling Services" } = Astro.props;
 ---
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Therapist Practice | Modern, Compassionate Care</title>
-    <meta name="description" content="A modern, welcoming therapist practice landing page. Professional, accessible, and calming design." />
+    <meta name="description" content={description} />
+    <title>{title}</title>
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload critical navigation assets -->
+    <link rel="preload" href="/fonts/raleway-v28-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/open-sans-v34-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Preload critical scripts -->
+    <link rel="modulepreload" href="/src/scripts/mobile-menu.ts" />
+    <link rel="modulepreload" href="/src/scripts/active-section.ts" />
+    <link rel="modulepreload" href="/src/scripts/font-loading.ts" />
+
+    <!-- Font loading optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    
+    <!-- Critical CSS -->
+    <style is:inline>
+      /* Prevent layout shift during font load */
+      html {
+        font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+        scroll-behavior: smooth;
+      }
+      
+      /* Prevent content shift when scrollbar appears */
+      html {
+        scrollbar-gutter: stable;
+      }
+
+      /* Ensure proper sizing */
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Improve default button styles */
+      button {
+        font: inherit;
+        cursor: pointer;
+      }
+
+      /* Improve link underlines */
+      a {
+        text-underline-offset: 0.2em;
+        text-decoration-thickness: from-font;
+      }
+
+      /* Improve focus styles */
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      /* Reduce motion if preferred */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+
+    <slot name="head" />
   </head>
   <body class="bg-neutral_light text-neutral_dark font-body min-h-screen antialiased selection:bg-primary/10">
     <div class="relative min-h-screen flex flex-col">
@@ -27,5 +101,28 @@ import '../styles/global.css';
         <div class="absolute bottom-0 right-0 w-1/2 h-1/3 bg-gradient-to-tr from-secondary/10 to-primary/0 rounded-full blur-2xl"></div>
       </div>
     </div>
+
+    <script>
+      import '../scripts/font-loading.ts';
+    </script>
   </body>
 </html>
+
+<style is:global>
+  /* Font face declarations */
+  @font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/raleway-v28-latin-600.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/open-sans-v34-latin-regular.woff2') format('woff2');
+  }
+</style>

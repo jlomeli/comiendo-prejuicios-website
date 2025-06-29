@@ -21,10 +21,14 @@ export default tseslint.config(
     languageOptions: {
       parser: astroParser,
       parserOptions: {
-        parser: tseslint.parser,
+        parser: '@typescript-eslint/parser',
         extraFileExtensions: ['.astro'],
         project: true,
         tsconfigRootDir: process.cwd(),
+      },
+      globals: {
+        'astro': true,
+        'Astro': true,
       },
     },
     rules: {
@@ -32,6 +36,7 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-undef': 'off', // Disable no-undef for Astro files as it's handled by TypeScript
     },
   },
 

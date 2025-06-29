@@ -8,7 +8,7 @@ const hero: HeroProps = {
 };
 const { title, description, ctaLabel, ctaHref } = hero;
 ---
-<section aria-labelledby="hero-heading" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r from-neutral_dark/30 to-primary/30">
+<section id="hero" aria-labelledby="hero-heading" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-r from-neutral_dark/30 to-primary/30">
   <div class="absolute inset-0 z-0">
     <img 
       src="/images/calm-office-space.jpg" 
@@ -18,7 +18,7 @@ const { title, description, ctaLabel, ctaHref } = hero;
       data-scroll 
       data-scroll-speed="-1"
     />
-    <div class="absolute inset-0 bg-gradient-to-r from-neutral-dark/30 to-primary/30 z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-neutral_dark/30 to-primary/30 z-10"></div>
   </div>
   <div class="container mx-auto px-6 relative z-20">
     <div class="max-w-xl" data-animation="fade-in">

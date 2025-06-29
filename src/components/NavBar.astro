@@ -1,7 +1,9 @@
+---
 import { navigationConfig } from '../config/navigation';
 import type { NavItem } from '../types/NavigationProps';
 
 const navItems: NavItem[] = navigationConfig.items;
+---
 
 <nav aria-label="Primary Navigation" class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-40">
   <div class="container mx-auto px-4 sm:px-6">
@@ -87,7 +89,7 @@ const navItems: NavItem[] = navigationConfig.items;
 </nav>
 
 <script>
-  import '../scripts/mobile-menu';
+  import '../scripts/mobile-menu.ts';
 </script>
 
 <style>

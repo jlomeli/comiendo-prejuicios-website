@@ -1,6 +1,8 @@
 ---
 // Astro layout for the therapist landing page
 import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+import NavBar from '../components/NavBar.astro';
 
 interface Props {
   title: string;
@@ -10,7 +12,7 @@ interface Props {
 const { title, description = "Comiendo Prejuicios - Therapy and Counseling Services" } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,6 +20,7 @@ const { title, description = "Comiendo Prejuicios - Therapy and Counseling Servi
     <title>{title}</title>
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
     <!-- Preload critical navigation assets -->
     <link rel="preload" href="/fonts/raleway-v28-latin-600.woff2" as="font" type="font/woff2" crossorigin />
@@ -86,14 +89,15 @@ const { title, description = "Comiendo Prejuicios - Therapy and Counseling Servi
       }
     </style>
 
-    <slot name="head" />
+    <ViewTransitions />
   </head>
-  <body class="bg-neutral_light text-neutral_dark font-body min-h-screen antialiased selection:bg-primary/10">
+  <body class="bg-neutral-light text-neutral-dark font-body min-h-screen antialiased selection:bg-primary/10">
+    <NavBar />
     <div class="relative min-h-screen flex flex-col">
       <main class="flex-1 w-full">
         <slot />
       </main>
-      <footer class="bg-white/80 border-t border-neutral_dark/10 py-8 text-center text-neutral_dark text-sm mt-12 shadow-inner">
+      <footer class="bg-white/80 border-t border-neutral-dark/10 py-8 text-center text-neutral-dark text-sm mt-12 shadow-inner">
         <span>&copy; {new Date().getFullYear()} Modern Therapy Practice. All rights reserved.</span>
       </footer>
       <div class="pointer-events-none fixed inset-0 z-[-1]">
@@ -104,6 +108,9 @@ const { title, description = "Comiendo Prejuicios - Therapy and Counseling Servi
 
     <script>
       import '../scripts/font-loading.ts';
+      import '../scripts/active-section.ts';
+      import '../scripts/mobile-menu.ts';
+      import '../scripts/gsap-fadein.ts';
     </script>
   </body>
 </html>

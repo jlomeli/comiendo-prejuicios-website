@@ -61,7 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Form element styles */
 input, textarea {
-  @apply rounded-lg border border-neutral_dark/20 p-2 bg-white/80 shadow-sm transition-shadow duration-200;
+  @apply rounded-lg border border-neutral-dark/20 p-2 bg-white/80 shadow-sm transition-shadow duration-200;
 }
 
 input:focus, textarea:focus {

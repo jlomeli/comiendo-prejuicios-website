@@ -40,6 +40,9 @@ const testimonials: TestimonialsProps = {
   ],
 };
 
+// Get unique roles for filter
+const roles = [...new Set(testimonials.testimonials.map(t => t.role))];
+
 // Helper function to render stars
 function renderStars(rating: number) {
   return Array.from({ length: 5 }, (_, i) => i < rating ? 'filled' : 'empty');
@@ -47,11 +50,11 @@ function renderStars(rating: number) {
 ---
 
 <section id="testimonials" aria-labelledby="testimonials-heading" class="relative py-20 overflow-hidden">
-  {/* Background Pattern */}
-  <div class="absolute inset-0 pointer-events-none bg-neutral_light">
-    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 1px 1px, var(--tw-colors-primary) 1px, transparent 0); background-size: 40px 40px;"></div>
-    <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-white to-transparent"></div>
-    <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-white to-transparent"></div>
+  {/* Background Pattern with Parallax */}
+  <div class="absolute inset-0 pointer-events-none bg-neutral-light">
+    <div class="parallax-bg absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 1px 1px, var(--tw-colors-primary) 1px, transparent 0); background-size: 40px 40px;"></div>
+    <div class="parallax-bg absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-white to-transparent"></div>
+    <div class="parallax-bg absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-white to-transparent"></div>
   </div>
   
   <div class="container mx-auto px-6 relative z-10">
@@ -59,30 +62,97 @@ function renderStars(rating: number) {
     <div class="text-center mb-16">
       <h2 
         id="testimonials-heading" 
-        class="text-4xl md:text-5xl font-heading text-primary mb-4 font-semibold" 
-        data-animation="fade-in"
+        class="text-4xl md:text-5xl font-heading text-primary mb-4 font-semibold"
       >
         What Our Clients Say
       </h2>
-      <p class="text-lg text-neutral_dark/80 max-w-2xl mx-auto">
+      <p class="text-lg text-neutral-dark/80 max-w-2xl mx-auto">
         Real stories from real people who have experienced transformation through our therapy services.
       </p>
     </div>
+
+    {/* Filters and Controls */}
+    <div class="mb-8 space-y-4">
+      <div class="flex flex-wrap gap-4 items-center justify-between">
+        <div class="flex flex-wrap gap-4 items-center">
+          {/* Role Filter */}
+          <div class="relative">
+            <select 
+              class="role-filter appearance-none bg-white border border-neutral-dark/20 rounded-lg py-2 pl-4 pr-10 text-neutral-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              aria-label="Filter by role"
+            >
+              <option value="all">All Roles</option>
+              {roles.map(role => (
+                <option value={role}>{role}</option>
+              ))}
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Rating Filter */}
+          <div class="relative">
+            <select 
+              class="rating-filter appearance-none bg-white border border-neutral-dark/20 rounded-lg py-2 pl-4 pr-10 text-neutral-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+              aria-label="Filter by minimum rating"
+            >
+              <option value="">Any Rating</option>
+              <option value="5">5 Stars</option>
+              <option value="4">4+ Stars</option>
+              <option value="3">3+ Stars</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Sort Control */}
+        <div class="relative">
+          <select 
+            class="sort-select appearance-none bg-white border border-neutral-dark/20 rounded-lg py-2 pl-4 pr-10 text-neutral-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
+            aria-label="Sort testimonials"
+          >
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+            <option value="rating-desc">Highest Rated</option>
+            <option value="rating-asc">Lowest Rated</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Active Filters Display */}
+      <div class="active-filters flex flex-wrap gap-2"></div>
+    </div>
     
     {/* Testimonials Grid */}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto">
+    <div class="testimonials-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto">
       {testimonials.testimonials.map((testimonial, index) => (
         <div 
           class:list={[
-            "group bg-white rounded-2xl p-8 relative transition-all duration-500",
+            "testimonial-card group bg-white rounded-2xl p-8 relative transition-all duration-500",
             "hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-1",
             "focus-within:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] focus-within:-translate-y-1",
-            "border border-neutral_dark/5",
+            "border border-neutral-dark/5",
+            // Initial state for GSAP animation
+            "opacity-0 translate-y-8",
             // Alternate card heights for masonry effect
             index % 2 === 0 ? "row-span-1" : "row-span-2 md:translate-y-12"
           ]}
-          data-animation="fade-in"
-          style={`animation-delay: ${index * 150}ms`}
+          data-role={testimonial.role}
+          data-rating={testimonial.rating}
+          data-date={testimonial.date}
+          style={`--card-index: ${index};`}
         >
           {/* Quote Icon */}
           <svg 
@@ -115,7 +185,7 @@ function renderStars(rating: number) {
               </div>
             </div>
             <div class="ml-4">
-              <h3 class="font-heading font-semibold text-lg text-neutral_dark group-hover:text-primary transition-colors duration-300">
+              <h3 class="font-heading font-semibold text-lg text-neutral-dark group-hover:text-primary transition-colors duration-300">
                 {testimonial.author}
               </h3>
               {testimonial.role && 
@@ -149,11 +219,26 @@ function renderStars(rating: number) {
             ))}
           </div>
 
-          {/* Quote */}
-          <blockquote class="relative">
-            <p class="text-neutral_dark/90 leading-relaxed mb-4 transition-colors duration-300 group-hover:text-neutral_dark">
+          {/* Quote with Expandable Text */}
+          <blockquote class="testimonial-quote relative">
+            <p class="quote-content text-neutral-dark/90 leading-relaxed">
               {testimonial.quote}
             </p>
+            <button 
+              class="expand-button mt-2 text-primary hover:text-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-2 -mx-2 transition-colors duration-200"
+              aria-expanded="false"
+            >
+              <span class="button-text">Read more</span>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                class="h-4 w-4 inline-block ml-1 transition-transform duration-200" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
             {testimonial.date && (
               <footer class="text-sm text-secondary/80 mt-4 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
@@ -171,16 +256,24 @@ function renderStars(rating: number) {
         </div>
       ))}
     </div>
+
+    {/* Pagination Controls */}
+    <div class="pagination-controls flex justify-center items-center gap-4 mt-12"></div>
   </div>
 </section>
 
+<script>
+  import '../scripts/read-more.js';
+  import '../scripts/testimonials-filter.ts';
+</script>
+
 <style>
   /* Base transitions */
-  .group {
+  .testimonial-card {
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
-    will-change: transform, box-shadow;
+    will-change: transform, opacity;
   }
 
   /* Ensure smooth image scaling */
@@ -194,36 +287,58 @@ function renderStars(rating: number) {
     z-index: 1;
   }
 
-  /* Fade in animation */
-  [data-animation="fade-in"] {
+  /* Quote content styles */
+  .testimonial-quote .quote-content {
+    position: relative;
+    transition: height 0.4s ease-out;
+  }
+
+  /* Expandable quote styles */
+  .testimonial-quote.expandable .quote-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: linear-gradient(to bottom, transparent, white);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+  }
+
+  .testimonial-quote.expanded .quote-content::after {
     opacity: 0;
-    animation: fadeIn 0.6s ease-out forwards;
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Expand button icon rotation */
+  .testimonial-quote.expanded .expand-button svg {
+    transform: rotate(180deg);
   }
 
-  /* Stagger children animations */
-  @media (prefers-reduced-motion: no-preference) {
-    .grid > div {
-      opacity: 0;
-      animation: fadeIn 0.6s ease-out forwards;
-    }
+  /* Filter tag styles */
+  .filter-tag {
+    @apply inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm;
+  }
+
+  .filter-tag .remove-filter {
+    @apply hover:text-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full;
+  }
+
+  /* Pagination button styles */
+  .pagination-btn {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-full bg-white border border-neutral-dark/20 text-neutral-dark hover:border-primary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200;
   }
 
   /* Disable animations if user prefers reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .grid > div {
+    .testimonial-card {
       opacity: 1;
-      animation: none;
+      transform: none;
+    }
+
+    .testimonial-quote .quote-content {
+      transition: none;
     }
   }
 </style>

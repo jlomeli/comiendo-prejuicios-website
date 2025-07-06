@@ -1,31 +1,30 @@
 import type { NavigationProps } from '../types/NavigationProps';
 
-export const navigationConfig: NavigationProps = {
-  items: [
-    { 
-      label: 'About',
-      href: '#about',
-      ariaLabel: 'About section'
+export const navigation: NavigationProps = {
+  links: [
+    {
+      text: 'About',
+      href: '/#about',
     },
     {
-      label: 'Services',
-      href: '#services',
-      ariaLabel: 'Our services'
+      text: 'Services',
+      href: '/#services',
     },
     {
-      label: 'Testimonials',
-      href: '#testimonials',
-      ariaLabel: 'Client testimonials'
+      text: 'Testimonials',
+      href: '/#testimonials',
     },
     {
-      label: 'Insurance',
-      href: '#insurance',
-      ariaLabel: 'Insurance information'
+      text: 'Insurance',
+      href: '/#insurance',
     },
     {
-      label: 'Contact',
-      href: '#contact',
-      ariaLabel: 'Contact us'
-    }
-  ]
+      text: 'Contact',
+      href: '/#contact',
+    },
+    {
+      text: 'About Claudia',
+      href: '/about-claudia',
+    },
+  ],
 }; 

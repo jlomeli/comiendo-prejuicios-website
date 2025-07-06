@@ -5,15 +5,15 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 // Handle expandable quotes
-function initExpandableQuotes() {
-  const quotes = document.querySelectorAll('.testimonial-quote');
+function initExpandableQuotes(): void {
+  const quotes = document.querySelectorAll<HTMLElement>('.testimonial-quote');
   const lineHeight = parseFloat(getComputedStyle(document.documentElement).fontSize) * 1.5; // Base line height
   const maxLines = 3;
   const maxHeight = lineHeight * maxLines;
 
   quotes.forEach(quote => {
-    const content = quote.querySelector('.quote-content');
-    const button = quote.querySelector('.expand-button');
+    const content = quote.querySelector<HTMLElement>('.quote-content');
+    const button = quote.querySelector<HTMLButtonElement>('.expand-button');
     
     if (!content || !button) return;
 
@@ -40,8 +40,11 @@ function initExpandableQuotes() {
 
         // Update states
         quote.classList.toggle('expanded');
-        button.setAttribute('aria-expanded', !isExpanded);
-        button.querySelector('.button-text').textContent = isExpanded ? 'Read more' : 'Show less';
+        button.setAttribute('aria-expanded', (!isExpanded).toString());
+        const buttonText = button.querySelector<HTMLElement>('.button-text');
+        if (buttonText) {
+          buttonText.textContent = isExpanded ? 'Read more' : 'Show less';
+        }
       });
     } else {
       // Hide button if content is short
@@ -51,8 +54,8 @@ function initExpandableQuotes() {
 }
 
 // Animate testimonials on scroll
-function initTestimonialAnimations() {
-  const testimonials = document.querySelectorAll('.testimonial-card');
+function initTestimonialAnimations(): void {
+  const testimonials = document.querySelectorAll<HTMLElement>('.testimonial-card');
   
   testimonials.forEach((card, index) => {
     ScrollTrigger.create({
@@ -74,8 +77,8 @@ function initTestimonialAnimations() {
 }
 
 // Initialize parallax effects
-function initParallaxEffects() {
-  const backgrounds = document.querySelectorAll('.parallax-bg');
+function initParallaxEffects(): void {
+  const backgrounds = document.querySelectorAll<HTMLElement>('.parallax-bg');
   
   backgrounds.forEach(bg => {
     gsap.to(bg, {
@@ -91,6 +94,38 @@ function initParallaxEffects() {
   });
 }
 
+// Handle read more functionality
+function initReadMore(): void {
+  const readMoreButtons = document.querySelectorAll<HTMLElement>('[data-read-more]');
+
+  readMoreButtons.forEach(button => {
+    const contentId = button.getAttribute('data-read-more');
+    if (!contentId) return;
+    
+    const content = document.getElementById(contentId);
+    if (!content) return;
+
+    const computedStyle = window.getComputedStyle(content);
+    const lineHeight = parseInt(computedStyle.lineHeight);
+    const maxLines = 3;
+    const maxHeight = `${lineHeight * maxLines}px`;
+    
+    content.style.maxHeight = maxHeight;
+    content.style.overflow = 'hidden';
+    content.classList.add('transition-all', 'duration-300', 'ease-in-out');
+
+    button.addEventListener('click', () => {
+      if (content.style.maxHeight === maxHeight) {
+        content.style.maxHeight = `${content.scrollHeight}px`;
+        button.textContent = 'Read Less';
+      } else {
+        content.style.maxHeight = maxHeight;
+        button.textContent = 'Read More';
+      }
+    });
+  });
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   // Check if user prefers reduced motion
@@ -101,32 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initParallaxEffects();
   }
   
-  // Always initialize expandable quotes as it's a functional feature
+  // Always initialize expandable quotes and read more as they're functional features
   initExpandableQuotes();
-
-  const readMoreButtons = document.querySelectorAll('[data-read-more]');
-
-  readMoreButtons.forEach(button => {
-    const contentId = button.getAttribute('data-read-more');
-    const content = document.getElementById(contentId);
-
-    if (content) {
-      // Get the computed line height to calculate max-height
-      const lineHeight = parseInt(window.getComputedStyle(content).lineHeight);
-      const maxLines = 3;
-      content.style.maxHeight = `${lineHeight * maxLines}px`;
-      content.style.overflow = 'hidden';
-      content.classList.add('transition-all', 'duration-300', 'ease-in-out');
-
-      button.addEventListener('click', () => {
-        if (content.style.maxHeight === `${lineHeight * maxLines}px`) {
-          content.style.maxHeight = `${content.scrollHeight}px`;
-          button.textContent = 'Read Less';
-        } else {
-          content.style.maxHeight = `${lineHeight * maxLines}px`;
-          button.textContent = 'Read More';
-        }
-      });
-    }
-  });
-});
+  initReadMore();
+}); 

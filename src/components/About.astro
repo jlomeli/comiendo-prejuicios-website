@@ -20,7 +20,7 @@ const about: AboutProps = {
       <div class="relative mx-auto max-w-sm w-full aspect-square" data-animation="fade-in">
         <div class="absolute inset-0 bg-primary/10 rounded-3xl transform -rotate-3 translate-x-4 translate-y-4"></div>
         <div class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-primary/50 w-full h-full">
-          <img src={imageUrl} alt={`Portrait of ${name}, ${credentials}`} class="w-full h-full object-cover" loading="lazy" />
+          <img src={about.image.src} alt={about.image.alt} class="w-full h-full object-cover" loading="lazy" />
         </div>
       </div>
       <div class="max-w-2xl" data-animation="fade-in">

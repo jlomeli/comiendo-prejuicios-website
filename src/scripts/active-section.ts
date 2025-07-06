@@ -20,20 +20,6 @@ const sections: Section[] = Array.from(document.querySelectorAll<HTMLElement>('s
 // Get all navigation links that point to sections
 const navLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-nav-link]');
 
-// Create a Map to store section-link pairs
-const sectionLinkMap = new Map<string, HTMLAnchorElement[]>();
-
-// Initialize the map
-navLinks.forEach(link => {
-  const href = link.getAttribute('href');
-  if (href && href.startsWith('#')) {
-    const sectionId = href.slice(1);
-    const existingLinks = sectionLinkMap.get(sectionId) || [];
-    existingLinks.push(link);
-    sectionLinkMap.set(sectionId, existingLinks);
-  }
-});
-
 // Function to update active link styles
 function updateActiveLink(sectionId: string | null) {
   navLinks.forEach(link => {
@@ -47,6 +33,33 @@ function updateActiveLink(sectionId: string | null) {
       }
     }
   });
+}
+
+// Function to handle smooth scrolling and mobile menu
+function handleNavClick(event: MouseEvent, targetId: string) {
+  event.preventDefault();
+  const targetSection = document.querySelector(targetId);
+  if (!targetSection) return;
+
+  targetSection.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+
+  updateActiveLink(targetId.slice(1));
+
+  // Close mobile menu if open
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const menuButton = document.getElementById('menu-button');
+  
+  if (mobileMenu?.classList.contains('translate-x-0')) {
+    mobileMenu.classList.remove('translate-x-0');
+    mobileMenu.classList.add('translate-x-full');
+    menuOverlay?.classList.add('hidden');
+    menuButton?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('overflow-hidden');
+  }
 }
 
 // Intersection Observer callback
@@ -92,47 +105,12 @@ function handleInitialState() {
 // Handle initial state
 handleInitialState();
 
-// Handle navigation link clicks
+// Add click handlers to all navigation links
 navLinks.forEach(link => {
   link.addEventListener('click', (event: MouseEvent) => {
     const href = link.getAttribute('href');
     if (href && href.startsWith('#')) {
-      event.preventDefault();
-      const targetSection = document.querySelector(href);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth' });
-        updateActiveLink(href.slice(1));
-      }
-    }
-  });
-});
-
-// Handle smooth scrolling
-sections.forEach(({ navLink }) => {
-  navLink?.addEventListener('click', (event: MouseEvent) => {
-    event.preventDefault();
-    const targetId = navLink.getAttribute('href');
-    if (!targetId) return;
-
-    const targetSection = document.querySelector(targetId);
-    if (!targetSection) return;
-
-    targetSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-
-    // Close mobile menu if open
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const menuButton = document.getElementById('menu-button');
-    
-    if (mobileMenu?.classList.contains('translate-x-0')) {
-      mobileMenu.classList.remove('translate-x-0');
-      mobileMenu.classList.add('translate-x-full');
-      menuOverlay?.classList.add('hidden');
-      menuButton?.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('overflow-hidden');
+      handleNavClick(event, href);
     }
   });
 }); 

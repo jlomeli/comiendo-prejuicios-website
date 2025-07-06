@@ -28,8 +28,10 @@ function updateActiveLink(sectionId: string | null) {
       const linkSectionId = href.slice(1);
       if (linkSectionId === sectionId) {
         link.classList.add('text-primary');
+        link.setAttribute('aria-current', 'page');
       } else {
         link.classList.remove('text-primary');
+        link.removeAttribute('aria-current');
       }
     }
   });

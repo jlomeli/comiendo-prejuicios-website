@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { setupMobileMenu, CLASSES } from '../../src/scripts/mobile-menu';
 
 // Mock DOM elements
 function setupDOM() {
@@ -11,32 +12,6 @@ function setupDOM() {
   `;
 }
 
-// Mock implementation of the mobile-menu script functionality
-function setupMobileMenuScript() {
-  const menuButton = document.getElementById('menu-button');
-  const closeButton = document.getElementById('close-menu');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuOverlay = document.getElementById('menu-overlay');
-
-  const openMenu = () => {
-    mobileMenu?.classList.remove('translate-x-full');
-    menuOverlay?.classList.remove('hidden');
-    document.body.classList.add('overflow-hidden');
-    menuButton?.setAttribute('aria-expanded', 'true');
-  };
-
-  const closeMenu = () => {
-    mobileMenu?.classList.add('translate-x-full');
-    menuOverlay?.classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-    menuButton?.setAttribute('aria-expanded', 'false');
-  };
-
-  menuButton?.addEventListener('click', openMenu);
-  closeButton?.addEventListener('click', closeMenu);
-  menuOverlay?.addEventListener('click', closeMenu);
-}
-
 describe('Mobile Menu Script', () => {
   beforeEach(() => {
     // Setup DOM before each test
@@ -47,66 +22,68 @@ describe('Mobile Menu Script', () => {
   });
   
   it('should open the mobile menu when menu button is clicked', () => {
-    // Setup the mobile menu script
-    setupMobileMenuScript();
-    
     // Get the elements
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
+    const menuButton = document.getElementById('menu-button') as HTMLElement;
+    const closeButton = document.getElementById('close-menu') as HTMLElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+    const menuOverlay = document.getElementById('menu-overlay') as HTMLElement;
     
-    // Trigger the click event on the menu button
-    menuButton?.dispatchEvent(new Event('click'));
+    // Setup the mobile menu with the actual implementation
+    const { openMenu } = setupMobileMenu(menuButton, closeButton, mobileMenu, menuOverlay);
+    
+    // Simulate clicking the menu button by calling openMenu directly
+    openMenu();
     
     // Check that the menu is opened
-    expect(menuButton?.getAttribute('aria-expanded')).toBe('true');
-    expect(mobileMenu?.classList.contains('translate-x-full')).toBe(false);
-    expect(menuOverlay?.classList.contains('hidden')).toBe(false);
-    expect(document.body.classList.contains('overflow-hidden')).toBe(true);
+    expect(menuButton.getAttribute('aria-expanded')).toBe('true');
+    expect(mobileMenu.classList.contains(CLASSES.MENU_CLOSED)).toBe(false);
+    expect(menuOverlay.classList.contains('hidden')).toBe(false);
+    expect(document.body.classList.contains(CLASSES.BODY_NO_SCROLL)).toBe(true);
   });
   
   it('should close the mobile menu when close button is clicked', () => {
-    // Setup the mobile menu script
-    setupMobileMenuScript();
-    
     // Get the elements
-    const menuButton = document.getElementById('menu-button');
-    const closeButton = document.getElementById('close-menu');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
+    const menuButton = document.getElementById('menu-button') as HTMLElement;
+    const closeButton = document.getElementById('close-menu') as HTMLElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+    const menuOverlay = document.getElementById('menu-overlay') as HTMLElement;
+    
+    // Setup the mobile menu with the actual implementation
+    const { openMenu, closeMenu } = setupMobileMenu(menuButton, closeButton, mobileMenu, menuOverlay);
     
     // First open the menu
-    menuButton?.dispatchEvent(new Event('click'));
+    openMenu();
     
     // Then close it
-    closeButton?.dispatchEvent(new Event('click'));
+    closeMenu();
     
     // Check that the menu is closed
-    expect(menuButton?.getAttribute('aria-expanded')).toBe('false');
-    expect(mobileMenu?.classList.contains('translate-x-full')).toBe(true);
-    expect(menuOverlay?.classList.contains('hidden')).toBe(true);
-    expect(document.body.classList.contains('overflow-hidden')).toBe(false);
+    expect(menuButton.getAttribute('aria-expanded')).toBe('false');
+    expect(mobileMenu.classList.contains(CLASSES.MENU_CLOSED)).toBe(true);
+    expect(menuOverlay.classList.contains('hidden')).toBe(true);
+    expect(document.body.classList.contains(CLASSES.BODY_NO_SCROLL)).toBe(false);
   });
   
   it('should close the mobile menu when overlay is clicked', () => {
-    // Setup the mobile menu script
-    setupMobileMenuScript();
-    
     // Get the elements
-    const menuButton = document.getElementById('menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuOverlay = document.getElementById('menu-overlay');
+    const menuButton = document.getElementById('menu-button') as HTMLElement;
+    const closeButton = document.getElementById('close-menu') as HTMLElement;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement;
+    const menuOverlay = document.getElementById('menu-overlay') as HTMLElement;
+    
+    // Setup the mobile menu with the actual implementation
+    const { openMenu } = setupMobileMenu(menuButton, closeButton, mobileMenu, menuOverlay);
     
     // First open the menu
-    menuButton?.dispatchEvent(new Event('click'));
+    openMenu();
     
     // Then click the overlay
-    menuOverlay?.dispatchEvent(new Event('click'));
+    menuOverlay.click();
     
     // Check that the menu is closed
-    expect(menuButton?.getAttribute('aria-expanded')).toBe('false');
-    expect(mobileMenu?.classList.contains('translate-x-full')).toBe(true);
-    expect(menuOverlay?.classList.contains('hidden')).toBe(true);
-    expect(document.body.classList.contains('overflow-hidden')).toBe(false);
+    expect(menuButton.getAttribute('aria-expanded')).toBe('false');
+    expect(mobileMenu.classList.contains(CLASSES.MENU_CLOSED)).toBe(true);
+    expect(menuOverlay.classList.contains('hidden')).toBe(true);
+    expect(document.body.classList.contains(CLASSES.BODY_NO_SCROLL)).toBe(false);
   });
 }); 

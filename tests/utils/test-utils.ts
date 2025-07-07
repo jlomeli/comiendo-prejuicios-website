@@ -1,4 +1,4 @@
-import * as jsdom from '@testing-library/dom';
+import { getQueriesForElement } from '@testing-library/dom';
 
 /**
  * Renders HTML string and returns testing-library utilities
@@ -11,7 +11,7 @@ export function renderHTML(html: string) {
   
   return {
     container,
-    ...jsdom.getQueriesForElement(container),
+    ...getQueriesForElement(container),
   };
 }
 

@@ -15,6 +15,8 @@ const contact: ContactProps = {
   },
   appointmentUrl: 'https://calendly.com/comiendoprejuicios/appointment'
 };
+
+const privacyPolicyUrl = "/privacy-policy";
 ---
 
 <section id="contact" class="py-20 bg-gradient-to-br from-white to-primary/5">
@@ -172,6 +174,16 @@ const contact: ContactProps = {
           novalidate
         >
           <div id="contactFormHeading" class="sr-only">Contact Form</div>
+          
+          <!-- Data Privacy Notice -->
+          <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-4">
+            <h4 class="text-sm font-medium text-blue-800 mb-1">Data Privacy</h4>
+            <p class="text-xs text-blue-700">
+              The information you provide will be used to respond to your inquiry and provide you with the services you request. 
+              We respect your privacy and will never share your information with third parties without your consent.
+            </p>
+          </div>
+          
           <div>
             <label for="name" class="block text-neutral-dark font-medium mb-1">Name <span class="text-red-600" aria-hidden="true">*</span></label>
             <input 
@@ -238,6 +250,25 @@ const contact: ContactProps = {
           </div>
           
           <div>
+            <label for="subject" class="block text-neutral-dark font-medium mb-1">Subject <span class="text-red-600" aria-hidden="true">*</span></label>
+            <select
+              id="subject"
+              name="subject"
+              required
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary"
+              aria-required="true"
+            >
+              <option value="">Please select...</option>
+              <option value="general">General Inquiry</option>
+              <option value="appointment">Appointment Request</option>
+              <option value="insurance">Insurance Question</option>
+              <option value="feedback">Feedback</option>
+              <option value="other">Other</option>
+            </select>
+            <p id="subjectError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please select a subject</p>
+          </div>
+          
+          <div>
             <label for="message" class="block text-neutral-dark font-medium mb-1">Message <span class="text-red-600" aria-hidden="true">*</span></label>
             <textarea 
               id="message" 
@@ -257,6 +288,42 @@ const contact: ContactProps = {
           <div class="hidden" aria-hidden="true">
             <label for="bot-field">Don't fill this out if you're human:</label>
             <input name="bot-field" id="bot-field" tabindex="-1" />
+          </div>
+          
+          <!-- Privacy Policy Consent -->
+          <div class="mt-4">
+            <label class="flex items-start">
+              <input 
+                type="checkbox" 
+                name="privacyConsent" 
+                id="privacyConsent" 
+                required 
+                class="mt-1 form-checkbox text-primary focus:ring-primary"
+                aria-required="true"
+              />
+              <span class="ml-2 text-sm text-neutral-dark">
+                I consent to the processing of my personal data according to the 
+                <a href={privacyPolicyUrl} class="text-primary hover:underline" target="_blank">Privacy Policy</a>. 
+                <span class="text-red-600" aria-hidden="true">*</span>
+              </span>
+            </label>
+            <p id="privacyError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">You must agree to the privacy policy</p>
+          </div>
+          
+          <!-- GDPR Compliance -->
+          <div class="mt-2">
+            <label class="flex items-start">
+              <input 
+                type="checkbox" 
+                name="marketingConsent" 
+                id="marketingConsent" 
+                class="mt-1 form-checkbox text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-neutral-dark">
+                I would like to receive occasional emails about services, resources, and events. 
+                You can unsubscribe at any time. (Optional)
+              </span>
+            </label>
           </div>
           
           <div class="text-right">

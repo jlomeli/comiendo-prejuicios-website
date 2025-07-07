@@ -101,11 +101,13 @@ function validateForm(): boolean {
   const nameInput = document.getElementById('name') as HTMLInputElement | null;
   const emailInput = document.getElementById('email') as HTMLInputElement | null;
   const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
+  const subjectInput = document.getElementById('subject') as HTMLSelectElement | null;
   const messageInput = document.getElementById('message') as HTMLTextAreaElement | null;
+  const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement | null;
   const botField = document.getElementById('bot-field') as HTMLInputElement | null;
   
   // Reset error messages
-  document.querySelectorAll('.text-red-500').forEach(el => {
+  document.querySelectorAll('.text-red-600').forEach(el => {
     el.classList.add('hidden');
   });
   
@@ -130,10 +132,24 @@ function validateForm(): boolean {
     isValid = false;
   }
   
+  // Validate subject
+  if (subjectInput && (!subjectInput.value || !subjectInput.validity.valid)) {
+    const subjectError = document.getElementById('subjectError');
+    if (subjectError) subjectError.classList.remove('hidden');
+    isValid = false;
+  }
+  
   // Validate message
   if (messageInput && !messageInput.validity.valid) {
     const messageError = document.getElementById('messageError');
     if (messageError) messageError.classList.remove('hidden');
+    isValid = false;
+  }
+  
+  // Validate privacy consent
+  if (privacyConsent && !privacyConsent.checked) {
+    const privacyError = document.getElementById('privacyError');
+    if (privacyError) privacyError.classList.remove('hidden');
     isValid = false;
   }
   

@@ -3,6 +3,9 @@ import { getEntry } from 'astro:content';
 import type { AboutProps } from '../types/AboutProps';
 
 const claudia = await getEntry('team', 'claudia-ornelas');
+if (!claudia) {
+  throw new Error('Could not find team member: claudia-ornelas');
+}
 const { name, credentials } = claudia.data;
 
 const about: AboutProps = {

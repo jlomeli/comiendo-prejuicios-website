@@ -2,6 +2,7 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -33,4 +34,6 @@ const { title, description, icon } = service.data;
         <a href="/" class="mt-12 inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary-dark transition-colors duration-300">Back to Home</a>
     </div>
   </main>
+
+  <Footer slot="footer" />
 </Layout>

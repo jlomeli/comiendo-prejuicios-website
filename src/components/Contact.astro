@@ -6,8 +6,41 @@ const contact: ContactProps = {
   phone: '(555) 123-4567',
   email: 'contact@comiendo-prejuicios.com',
   hours: 'Monday - Friday: 9am - 7pm',
-  responseTime: 'Usually within 24 hours'
+  responseTime: 'Usually within 24 hours',
+  socialMedia: {
+    facebook: 'https://facebook.com/comiendoprejuicios',
+    instagram: 'https://instagram.com/comiendoprejuicios',
+    twitter: 'https://twitter.com/comiendoprejuicios',
+    linkedin: 'https://linkedin.com/company/comiendoprejuicios'
+  },
+  appointmentUrl: 'https://calendly.com/comiendoprejuicios/appointment'
 };
+
+const privacyPolicyUrl = "/privacy-policy";
+
+// Social media data with icons
+const socialMediaLinks = [
+  {
+    name: 'Facebook',
+    url: contact.socialMedia.facebook,
+    icon: 'M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z'
+  },
+  {
+    name: 'Instagram',
+    url: contact.socialMedia.instagram,
+    icon: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z'
+  },
+  {
+    name: 'Twitter',
+    url: contact.socialMedia.twitter,
+    icon: 'M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z'
+  },
+  {
+    name: 'LinkedIn',
+    url: contact.socialMedia.linkedin,
+    icon: 'M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z'
+  }
+];
 ---
 
 <section id="contact" class="py-20 bg-gradient-to-br from-white to-primary/5">
@@ -16,33 +49,302 @@ const contact: ContactProps = {
       <h2 class="text-3xl md:text-4xl font-heading text-primary mb-12 font-semibold text-center">Contact Us</h2>
       <div class="grid md:grid-cols-2 gap-12">
         <div>
+          <h3 class="text-xl font-medium text-neutral-dark mb-4">Our Information</h3>
           <address class="not-italic mb-4 text-neutral-dark">
-            {contact.address}<br />
-            Phone: <a href={`tel:${contact.phone}`} class="hover:text-primary transition-colors">{contact.phone}</a><br />
-            Email: <a href={`mailto:${contact.email}`} class="hover:text-primary transition-colors">{contact.email}</a>
+            <span aria-label="Address">{contact.address}</span><br />
+            Phone: <a href={`tel:${contact.phone}`} class="hover:text-primary transition-colors" aria-label="Phone number">{contact.phone}</a><br />
+            Email: <a href={`mailto:${contact.email}`} class="hover:text-primary transition-colors" aria-label="Email address">{contact.email}</a>
           </address>
-          <p class="mb-2 text-neutral-dark"><strong>Hours:</strong> {contact.hours}</p>
-          <p class="mb-2 text-neutral-dark"><strong>Response Time:</strong> {contact.responseTime}</p>
+          <p class="mb-2 text-neutral-dark"><strong>Hours:</strong> <span aria-label="Business hours">{contact.hours}</span></p>
+          <p class="mb-2 text-neutral-dark"><strong>Response Time:</strong> <span aria-label="Response time">{contact.responseTime}</span></p>
+          
+          <!-- Social Media Links -->
+          <div class="mt-6">
+            <h4 class="text-lg font-medium text-neutral-dark mb-2">Connect With Us</h4>
+            <div class="flex space-x-4">
+              {socialMediaLinks.map(social => (
+                <a 
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="text-neutral-dark hover:text-primary transition-colors"
+                  aria-label={social.name}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d={social.icon} />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Appointment Scheduling -->
+          <div class="mt-6">
+            <h4 class="text-lg font-medium text-neutral-dark mb-2">Schedule an Appointment</h4>
+            <a 
+              href={contact.appointmentUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-md transition-colors"
+              aria-label="Schedule an appointment"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+              </svg>
+              Book Online
+            </a>
+          </div>
+          
+          <!-- Map Integration -->
+          <div class="mt-6">
+            <h4 class="text-lg font-medium text-neutral-dark mb-2">Find Us</h4>
+            <div class="rounded-lg overflow-hidden shadow-md h-64 w-full">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7152203483424!2d-118.2430121845992!3d34.05204252569443!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2090001!5e0!3m2!1sen!2sus!4v1623456789012!5m2!1sen!2sus" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                title="Office Location Map"
+                aria-label="Map showing our office location"
+              ></iframe>
+            </div>
+          </div>
         </div>
-        <form class="space-y-4" name="contact" method="POST" data-netlify="true">
+        
+        <!-- Success message -->
+        <div 
+          id="successMessage" 
+          class="hidden bg-green-100 border border-green-500 text-green-800 px-4 py-3 rounded relative mb-4" 
+          role="alert" 
+          aria-live="polite"
+        >
+          <strong class="font-bold">Thank you!</strong>
+          <span class="block sm:inline"> Your message has been sent successfully. We'll get back to you soon.</span>
+          <button 
+            type="button" 
+            class="absolute top-0 right-0 px-4 py-3" 
+            id="closeSuccess"
+            aria-label="Close success message"
+          >
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Error message -->
+        <div 
+          id="errorMessage" 
+          class="hidden bg-red-100 border border-red-500 text-red-800 px-4 py-3 rounded relative mb-4" 
+          role="alert" 
+          aria-live="assertive"
+        >
+          <strong class="font-bold">Oops!</strong>
+          <span class="block sm:inline"> Something went wrong. Please try again later.</span>
+          <button 
+            type="button" 
+            class="absolute top-0 right-0 px-4 py-3" 
+            id="closeError"
+            aria-label="Close error message"
+          >
+            <span class="sr-only">Close</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <form 
+          class="space-y-4" 
+          name="contact" 
+          method="POST" 
+          data-netlify="true"
+          id="contactForm"
+          aria-labelledby="contactFormHeading"
+          novalidate
+        >
+          <div id="contactFormHeading" class="sr-only">Contact Form</div>
+          
+          <!-- Hidden input for Netlify form name -->
+          <input type="hidden" name="form-name" value="contact" />
+          
+          <!-- Data Privacy Notice -->
+          <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-4">
+            <h4 class="text-sm font-medium text-blue-800 mb-1">Data Privacy</h4>
+            <p class="text-xs text-blue-700">
+              The information you provide will be used to respond to your inquiry and provide you with the services you request. 
+              We respect your privacy and will never share your information with third parties without your consent.
+            </p>
+          </div>
+          
           <div>
-            <label for="name" class="block text-neutral-dark font-medium mb-1">Name</label>
-            <input id="name" name="name" type="text" required class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary" />
+            <label for="name" class="block text-neutral-dark font-medium mb-1">Name <span class="text-red-600" aria-hidden="true">*</span></label>
+            <input 
+              id="name" 
+              name="name" 
+              type="text" 
+              required 
+              minlength="2"
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary" 
+              aria-required="true"
+              aria-describedby="nameDescription nameError"
+              autofocus
+            />
+            <div id="nameDescription" class="text-xs text-neutral-dark/80 mt-1">Please enter your full name</div>
+            <p id="nameError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please enter a valid name (at least 2 characters)</p>
           </div>
           <div>
-            <label for="email" class="block text-neutral-dark font-medium mb-1">Email</label>
-            <input id="email" name="email" type="email" required class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary" />
+            <label for="email" class="block text-neutral-dark font-medium mb-1">Email <span class="text-red-600" aria-hidden="true">*</span></label>
+            <input 
+              id="email" 
+              name="email" 
+              type="email" 
+              required 
+              pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary" 
+              aria-required="true"
+              aria-describedby="emailDescription emailError"
+            />
+            <div id="emailDescription" class="text-xs text-neutral-dark/80 mt-1">We'll never share your email with anyone else</div>
+            <p id="emailError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please enter a valid email address</p>
           </div>
           <div>
-            <label for="message" class="block text-neutral-dark font-medium mb-1">Message</label>
-            <textarea id="message" name="message" required rows="4" class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary"></textarea>
+            <label for="phone" class="block text-neutral-dark font-medium mb-1">Phone (optional)</label>
+            <input 
+              id="phone" 
+              name="phone" 
+              type="tel" 
+              pattern="[\d\s\(\)\-\+]+"
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary" 
+              aria-required="false"
+              aria-describedby="phoneDescription phoneError"
+            />
+            <div id="phoneDescription" class="text-xs text-neutral-dark/80 mt-1">Optional contact number</div>
+            <p id="phoneError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please enter a valid phone number</p>
           </div>
+          
+          <!-- Contact Preference -->
+          <div>
+            <label class="block text-neutral-dark font-medium mb-1">Preferred Contact Method</label>
+            <div class="flex flex-wrap gap-4">
+              <label class="inline-flex items-center">
+                <input type="radio" name="contactPreference" value="email" class="form-radio text-primary focus:ring-primary" checked>
+                <span class="ml-2 text-neutral-dark">Email</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="contactPreference" value="phone" class="form-radio text-primary focus:ring-primary">
+                <span class="ml-2 text-neutral-dark">Phone</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="contactPreference" value="either" class="form-radio text-primary focus:ring-primary">
+                <span class="ml-2 text-neutral-dark">Either</span>
+              </label>
+            </div>
+          </div>
+          
+          <div>
+            <label for="subject" class="block text-neutral-dark font-medium mb-1">Subject <span class="text-red-600" aria-hidden="true">*</span></label>
+            <select
+              id="subject"
+              name="subject"
+              required
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary"
+              aria-required="true"
+            >
+              <option value="">Please select...</option>
+              <option value="general">General Inquiry</option>
+              <option value="appointment">Appointment Request</option>
+              <option value="insurance">Insurance Question</option>
+              <option value="feedback">Feedback</option>
+              <option value="other">Other</option>
+            </select>
+            <p id="subjectError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please select a subject</p>
+          </div>
+          
+          <div>
+            <label for="message" class="block text-neutral-dark font-medium mb-1">Message <span class="text-red-600" aria-hidden="true">*</span></label>
+            <textarea 
+              id="message" 
+              name="message" 
+              required 
+              minlength="10"
+              rows="4" 
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary"
+              aria-required="true"
+              aria-describedby="messageDescription messageError"
+            ></textarea>
+            <div id="messageDescription" class="text-xs text-neutral-dark/80 mt-1">Please provide details about your inquiry</div>
+            <p id="messageError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please enter a message (at least 10 characters)</p>
+          </div>
+          
+          <!-- Honeypot field to prevent spam -->
+          <div class="hidden" aria-hidden="true">
+            <label for="bot-field">Don't fill this out if you're human:</label>
+            <input name="bot-field" id="bot-field" tabindex="-1" />
+          </div>
+          
+          <!-- Privacy Policy Consent -->
+          <div class="mt-4">
+            <label class="flex items-start">
+              <input 
+                type="checkbox" 
+                name="privacyConsent" 
+                id="privacyConsent" 
+                required 
+                class="mt-1 form-checkbox text-primary focus:ring-primary"
+                aria-required="true"
+              />
+              <span class="ml-2 text-sm text-neutral-dark">
+                I consent to the processing of my personal data according to the 
+                <a href={privacyPolicyUrl} class="text-primary hover:underline" target="_blank">Privacy Policy</a>. 
+                <span class="text-red-600" aria-hidden="true">*</span>
+              </span>
+            </label>
+            <p id="privacyError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">You must agree to the privacy policy</p>
+          </div>
+          
+          <!-- GDPR Compliance -->
+          <div class="mt-2">
+            <label class="flex items-start">
+              <input 
+                type="checkbox" 
+                name="marketingConsent" 
+                id="marketingConsent" 
+                class="mt-1 form-checkbox text-primary focus:ring-primary"
+              />
+              <span class="ml-2 text-sm text-neutral-dark">
+                I would like to receive occasional emails about services, resources, and events. 
+                You can unsubscribe at any time. (Optional)
+              </span>
+            </label>
+          </div>
+          
           <div class="text-right">
             <button
               type="submit"
-              class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-colors duration-300"
+              id="submitButton"
+              class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              aria-label="Submit contact form"
             >
               Send Message
+            </button>
+            
+            <!-- Loading spinner (hidden by default) -->
+            <button
+              type="button"
+              id="loadingButton"
+              class="hidden inline-block bg-primary text-white font-bold py-3 px-8 rounded-full"
+              disabled
+              aria-hidden="true"
+            >
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Sending...
             </button>
           </div>
         </form>
@@ -50,3 +352,8 @@ const contact: ContactProps = {
     </div>
   </div>
 </section>
+
+<script>
+  // Import the contact form validation code
+  import "../scripts/contact-form.ts";
+</script>

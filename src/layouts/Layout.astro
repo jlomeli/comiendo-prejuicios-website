@@ -97,9 +97,8 @@ const { title, description = "Comiendo Prejuicios - Therapy and Counseling Servi
       <main class="flex-1 w-full">
         <slot />
       </main>
-      <footer class="bg-white/80 border-t border-neutral-dark/10 py-8 text-center text-neutral-dark text-sm mt-12 shadow-inner">
-        <span>&copy; {new Date().getFullYear()} Modern Therapy Practice. All rights reserved.</span>
-      </footer>
+      <!-- Footer is now included in the page templates rather than hardcoded in the layout -->
+      <slot name="footer" />
       <div class="pointer-events-none fixed inset-0 z-[-1]">
         <div class="absolute top-0 left-0 w-2/3 h-1/2 bg-gradient-to-br from-primary/10 to-accent/0 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 right-0 w-1/2 h-1/3 bg-gradient-to-tr from-secondary/10 to-primary/0 rounded-full blur-2xl"></div>

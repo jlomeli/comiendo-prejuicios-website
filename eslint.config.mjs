@@ -12,12 +12,11 @@ export default tseslint.config(
   // TypeScript ESLint recommended rules
   ...tseslint.configs.recommended,
 
-  // Astro ESLint recommended rules
-  ...astro.configs.recommended,
-
-  // Configuration for Astro files
   {
     files: ['**/*.astro'],
+    plugins: {
+      astro: astro,
+    },
     languageOptions: {
       parser: astroParser,
       parserOptions: {
@@ -32,11 +31,13 @@ export default tseslint.config(
       },
     },
     rules: {
+      'astro/no-conflict-set-directives': 'error',
+      'astro/no-unused-define-vars-in-style': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'no-undef': 'off', // Disable no-undef for Astro files as it's handled by TypeScript
+      'no-undef': 'off',
     },
   },
 
@@ -54,7 +55,17 @@ export default tseslint.config(
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/no-misused-promises': 'error',
       '@typescript-eslint/await-thenable': 'error',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
+  },
+
+  // Configuration for .d.ts files
+  {
+    files: ['**/*.d.ts'],
+    rules: {
+      '@typescript-eslint/triple-slash-reference': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
 
@@ -80,6 +91,13 @@ export default tseslint.config(
       globals: {
         window: true,
         document: true,
+        getComputedStyle: true,
+        localStorage: true,
+        sessionStorage: true,
+        setTimeout: true,
+        clearTimeout: true,
+        setInterval: true,
+        clearInterval: true,
       },
     },
     rules: {

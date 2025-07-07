@@ -1,7 +1,9 @@
+export interface AboutImage {
+  src: string;
+  alt: string;
+}
+
 export interface AboutProps {
-  name: string;
-  credentials: string;
   intro: string;
-  philosophy: string;
-  imageUrl: string;
+  image: AboutImage;
 }

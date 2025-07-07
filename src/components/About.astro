@@ -1,24 +1,37 @@
 ---
 import { getEntry } from 'astro:content';
+import type { AboutProps } from '../types/AboutProps';
 
 const claudia = await getEntry('team', 'claudia-ornelas');
-const { name, credentials, intro, imageUrl } = claudia.data;
+const { name, credentials } = claudia.data;
+
+const about: AboutProps = {
+  intro: "Welcome to a space where healing and growth intertwine. As a dedicated therapist, I believe in creating a warm, non-judgmental environment where you can explore your thoughts and feelings freely.",
+  image: {
+    src: "/images/therapist-portrait.jpg",
+    alt: "Professional portrait of the therapist"
+  }
+};
 ---
+
 <section id="about" aria-labelledby="about-heading" class="py-20 bg-gradient-to-br from-white to-primary/5 relative overflow-hidden">
   <div class="container mx-auto px-6 relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="relative mx-auto max-w-sm w-full aspect-square" data-animation="fade-in">
         <div class="absolute inset-0 bg-primary/10 rounded-3xl transform -rotate-3 translate-x-4 translate-y-4"></div>
         <div class="relative rounded-3xl overflow-hidden shadow-xl border-4 border-primary/50 w-full h-full">
-          <img src={imageUrl} alt={`Portrait of ${name}, ${credentials}`} class="w-full h-full object-cover" loading="lazy" />
+          <img src={about.image.src} alt={about.image.alt} class="w-full h-full object-cover" loading="lazy" />
         </div>
       </div>
       <div class="max-w-2xl" data-animation="fade-in">
         <h2 id="about-heading" class="text-4xl font-heading text-primary mb-4 font-semibold">About {name}</h2>
         <p class="text-secondary font-medium text-xl mb-6">{credentials}</p>
-        <p class="text-lg text-neutral_dark mb-6">{intro}</p>
-        <a href="/about-claudia" class="inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary_dark transition-colors duration-300 mt-6">
-          Learn More About {name}
+        <p class="text-lg text-neutral-dark mb-6">{about.intro}</p>
+        <a
+          href="/about-claudia"
+          class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-colors duration-300"
+        >
+          Learn More About Me
         </a>
       </div>
     </div>

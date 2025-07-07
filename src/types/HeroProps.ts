@@ -1,6 +1,10 @@
+export interface HeroImage {
+  src: string;
+  alt: string;
+}
+
 export interface HeroProps {
   title: string;
-  description: string;
-  ctaLabel: string;
-  ctaHref: string;
+  subtitle: string;
+  image: HeroImage;
 }

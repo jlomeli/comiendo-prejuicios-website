@@ -1,8 +1,12 @@
 ---
 import { getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
 
 const claudia = await getEntry('team', 'claudia-ornelas');
+if (!claudia) {
+  throw new Error('Could not find team member: claudia-ornelas');
+}
 const { name, credentials, intro, philosophy, missionStatement, imageUrl, education, specialties } = claudia.data;
 ---
 <Layout title={`About ${name}`}>
@@ -56,4 +60,6 @@ const { name, credentials, intro, philosophy, missionStatement, imageUrl, educat
       </div>
     </div>
   </main>
+
+  <Footer slot="footer" />
 </Layout>

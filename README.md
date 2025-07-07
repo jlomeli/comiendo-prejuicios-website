@@ -1,5 +1,8 @@
 # Comiendo Prejuicios Website
 
+[![Unit Tests](https://github.com/yourusername/comiendo-prejuicios-website/actions/workflows/test.yml/badge.svg)](https://github.com/yourusername/comiendo-prejuicios-website/actions/workflows/test.yml)
+[![Test Coverage](https://github.com/yourusername/comiendo-prejuicios-website/actions/workflows/coverage.yml/badge.svg)](https://github.com/yourusername/comiendo-prejuicios-website/actions/workflows/coverage.yml)
+
 A modern, responsive website for a therapy practice built with Astro and Tailwind CSS.
 
 ## Features

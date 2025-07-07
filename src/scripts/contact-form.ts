@@ -52,6 +52,10 @@ async function handleFormSubmit(
   try {
     // Submit the form data using Fetch API
     const formData = new FormData(form);
+    
+    // Add the form name to the data (important for Netlify)
+    formData.append("form-name", "contact");
+    
     const response = await fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -82,13 +86,18 @@ async function handleFormSubmit(
  * Helper function to convert FormData to a plain object
  */
 function formDataToObject(formData: FormData): Record<string, string> {
+  // Create an object from the form data entries
   const object: Record<string, string> = {};
-  formData.forEach((value, key) => {
+  // Use type assertion to access entries() method
+  const entries = Array.from((formData as unknown as { entries(): Iterable<[string, FormDataEntryValue]> }).entries());
+  
+  for (const [key, value] of entries) {
     // Only handle string values
     if (typeof value === 'string') {
       object[key] = value;
     }
-  });
+  }
+  
   return object;
 }
 
@@ -106,8 +115,8 @@ function validateForm(): boolean {
   const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement | null;
   const botField = document.getElementById('bot-field') as HTMLInputElement | null;
   
-  // Reset error messages
-  document.querySelectorAll('.text-red-600').forEach(el => {
+  // Reset error messages - use a more specific selector that only targets error messages
+  document.querySelectorAll('[id$="Error"]').forEach(el => {
     el.classList.add('hidden');
   });
   

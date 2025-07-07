@@ -1,12 +1,66 @@
 // Contact form validation
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contactForm') as HTMLFormElement;
+  const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
+  const loadingButton = document.getElementById('loadingButton') as HTMLButtonElement;
+  const successMessage = document.getElementById('successMessage') as HTMLDivElement;
+  const errorMessage = document.getElementById('errorMessage') as HTMLDivElement;
+  const closeSuccess = document.getElementById('closeSuccess') as HTMLButtonElement;
+  const closeError = document.getElementById('closeError') as HTMLButtonElement;
   
+  // Set up form submission
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
       if (!validateForm()) {
-        e.preventDefault();
+        return;
       }
+      
+      // Show loading state
+      if (submitButton) submitButton.classList.add('hidden');
+      if (loadingButton) loadingButton.classList.remove('hidden');
+      
+      try {
+        // Submit the form data using Fetch API
+        const formData = new FormData(form);
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData as any).toString()
+        });
+        
+        if (response.ok) {
+          // Show success message
+          if (successMessage) successMessage.classList.remove('hidden');
+          // Reset the form
+          form.reset();
+        } else {
+          // Show error message
+          if (errorMessage) errorMessage.classList.remove('hidden');
+        }
+      } catch (error) {
+        // Show error message
+        if (errorMessage) errorMessage.classList.remove('hidden');
+        console.error('Form submission error:', error);
+      } finally {
+        // Hide loading state
+        if (submitButton) submitButton.classList.remove('hidden');
+        if (loadingButton) loadingButton.classList.add('hidden');
+      }
+    });
+  }
+  
+  // Set up close buttons for messages
+  if (closeSuccess) {
+    closeSuccess.addEventListener('click', () => {
+      if (successMessage) successMessage.classList.add('hidden');
+    });
+  }
+  
+  if (closeError) {
+    closeError.addEventListener('click', () => {
+      if (errorMessage) errorMessage.classList.add('hidden');
     });
   }
 });

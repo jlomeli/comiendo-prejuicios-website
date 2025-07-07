@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { validateForm, setupCloseButtons, CLASSES } from '../../src/scripts/contact-form';
 
 // Setup mock DOM for contact form
 function setupContactFormDOM() {
@@ -94,125 +95,94 @@ function setupContactFormDOM() {
   `;
 }
 
-// Setup event listeners for close buttons
-function setupCloseButtons() {
-  const closeSuccess = document.getElementById('closeSuccess');
-  const closeError = document.getElementById('closeError');
-  const successMessage = document.getElementById('successMessage');
-  const errorMessage = document.getElementById('errorMessage');
+// Get form elements for testing
+function getFormElements() {
+  const nameInput = document.getElementById('name') as HTMLInputElement;
+  const emailInput = document.getElementById('email') as HTMLInputElement;
+  const phoneInput = document.getElementById('phone') as HTMLInputElement;
+  const subjectInput = document.getElementById('subject') as HTMLSelectElement;
+  const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+  const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement;
+  const botField = document.getElementById('bot-field') as HTMLInputElement;
   
-  closeSuccess?.addEventListener('click', () => {
-    successMessage?.classList.add('hidden');
-  });
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const phoneError = document.getElementById('phoneError');
+  const subjectError = document.getElementById('subjectError');
+  const messageError = document.getElementById('messageError');
+  const privacyError = document.getElementById('privacyError');
   
-  closeError?.addEventListener('click', () => {
-    errorMessage?.classList.add('hidden');
-  });
-}
-
-// Import the validateForm function directly for testing
-function validateForm(): boolean {
-  let isValid = true;
-  const nameInput = document.getElementById('name') as HTMLInputElement | null;
-  const emailInput = document.getElementById('email') as HTMLInputElement | null;
-  const phoneInput = document.getElementById('phone') as HTMLInputElement | null;
-  const subjectInput = document.getElementById('subject') as HTMLSelectElement | null;
-  const messageInput = document.getElementById('message') as HTMLTextAreaElement | null;
-  const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement | null;
-  const botField = document.getElementById('bot-field') as HTMLInputElement | null;
-  
-  // Reset error messages
-  document.querySelectorAll('[id$="Error"]').forEach(el => {
-    el.classList.add('hidden');
-  });
-  
-  // Validate name
-  if (nameInput && !nameInput.validity.valid) {
-    const nameError = document.getElementById('nameError');
-    if (nameError) nameError.classList.remove('hidden');
-    isValid = false;
-  }
-  
-  // Validate email
-  if (emailInput && !emailInput.validity.valid) {
-    const emailError = document.getElementById('emailError');
-    if (emailError) emailError.classList.remove('hidden');
-    isValid = false;
-  }
-  
-  // Validate phone (if provided)
-  if (phoneInput && phoneInput.value && !phoneInput.validity.valid) {
-    const phoneError = document.getElementById('phoneError');
-    if (phoneError) phoneError.classList.remove('hidden');
-    isValid = false;
-  }
-  
-  // Validate subject
-  if (subjectInput && (!subjectInput.value || !subjectInput.validity.valid)) {
-    const subjectError = document.getElementById('subjectError');
-    if (subjectError) subjectError.classList.remove('hidden');
-    isValid = false;
-  }
-  
-  // Validate message
-  if (messageInput && !messageInput.validity.valid) {
-    const messageError = document.getElementById('messageError');
-    if (messageError) messageError.classList.remove('hidden');
-    isValid = false;
-  }
-  
-  // Validate privacy consent
-  if (privacyConsent && !privacyConsent.checked) {
-    const privacyError = document.getElementById('privacyError');
-    if (privacyError) privacyError.classList.remove('hidden');
-    isValid = false;
-  }
-  
-  // Check honeypot field
-  if (botField && botField.value) {
-    // Bot detected
-    return false;
-  }
-  
-  return isValid;
+  return {
+    nameInput,
+    emailInput,
+    phoneInput,
+    subjectInput,
+    messageInput,
+    privacyConsent,
+    botField,
+    errorElements: {
+      nameError,
+      emailError,
+      phoneError,
+      subjectError,
+      messageError,
+      privacyError
+    }
+  };
 }
 
 describe('Contact Form Validation', () => {
   beforeEach(() => {
     setupContactFormDOM();
-    setupCloseButtons();
+    
+    // Setup close buttons
+    const closeSuccess = document.getElementById('closeSuccess') as HTMLElement;
+    const closeError = document.getElementById('closeError') as HTMLElement;
+    const successMessage = document.getElementById('successMessage') as HTMLElement;
+    const errorMessage = document.getElementById('errorMessage') as HTMLElement;
+    
+    if (closeSuccess && closeError && successMessage && errorMessage) {
+      setupCloseButtons({
+        closeSuccess,
+        closeError,
+        successMessage,
+        errorMessage
+      });
+    }
   });
   
   it('should validate a valid form', () => {
     // Set up a valid form
-    const nameInput = document.getElementById('name') as HTMLInputElement;
-    const emailInput = document.getElementById('email') as HTMLInputElement;
-    const subjectInput = document.getElementById('subject') as HTMLSelectElement;
-    const messageInput = document.getElementById('message') as HTMLTextAreaElement;
-    const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement;
+    const elements = getFormElements();
     
-    nameInput.value = 'John Doe';
-    emailInput.value = 'john@example.com';
-    subjectInput.value = 'Individual Therapy';
-    messageInput.value = 'This is a test message that is long enough.';
-    privacyConsent.checked = true;
+    elements.nameInput.value = 'John Doe';
+    elements.emailInput.value = 'john@example.com';
+    elements.subjectInput.value = 'Individual Therapy';
+    elements.messageInput.value = 'This is a test message that is long enough.';
+    elements.privacyConsent.checked = true;
+    
+    // Make sure all error messages are hidden initially
+    document.querySelectorAll('[id$="Error"]').forEach(el => {
+      el.classList.add(CLASSES.HIDDEN);
+    });
     
     // Validate the form
-    const isValid = validateForm();
+    const isValid = validateForm(elements);
     
     // Check that the form is valid
     expect(isValid).toBe(true);
     
     // Check that no error messages are shown
-    const errorMessages = document.querySelectorAll('[id$="Error"]:not(.hidden)');
+    const errorMessages = document.querySelectorAll(`[id$="Error"]:not(.${CLASSES.HIDDEN})`);
     expect(errorMessages.length).toBe(0);
   });
   
   it('should invalidate a form with missing required fields', () => {
     // Don't set any values, leaving all required fields empty
+    const elements = getFormElements();
     
     // Validate the form
-    const isValid = validateForm();
+    const isValid = validateForm(elements);
     
     // Check that the form is invalid
     expect(isValid).toBe(false);
@@ -224,32 +194,28 @@ describe('Contact Form Validation', () => {
     const messageError = document.getElementById('messageError');
     const privacyError = document.getElementById('privacyError');
     
-    expect(nameError?.classList.contains('hidden')).toBe(false);
-    expect(emailError?.classList.contains('hidden')).toBe(false);
-    expect(subjectError?.classList.contains('hidden')).toBe(false);
-    expect(messageError?.classList.contains('hidden')).toBe(false);
-    expect(privacyError?.classList.contains('hidden')).toBe(false);
+    expect(nameError?.classList.contains(CLASSES.HIDDEN)).toBe(false);
+    expect(emailError?.classList.contains(CLASSES.HIDDEN)).toBe(false);
+    expect(subjectError?.classList.contains(CLASSES.HIDDEN)).toBe(false);
+    expect(messageError?.classList.contains(CLASSES.HIDDEN)).toBe(false);
+    expect(privacyError?.classList.contains(CLASSES.HIDDEN)).toBe(false);
   });
   
   it('should invalidate a form with an invalid email', () => {
     // Set up a form with an invalid email
-    const nameInput = document.getElementById('name') as HTMLInputElement;
-    const emailInput = document.getElementById('email') as HTMLInputElement;
-    const subjectInput = document.getElementById('subject') as HTMLSelectElement;
-    const messageInput = document.getElementById('message') as HTMLTextAreaElement;
-    const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement;
+    const elements = getFormElements();
     
-    nameInput.value = 'John Doe';
-    emailInput.value = 'invalid-email'; // Invalid email
-    subjectInput.value = 'Individual Therapy';
-    messageInput.value = 'This is a test message that is long enough.';
-    privacyConsent.checked = true;
+    elements.nameInput.value = 'John Doe';
+    elements.emailInput.value = 'invalid-email'; // Invalid email
+    elements.subjectInput.value = 'Individual Therapy';
+    elements.messageInput.value = 'This is a test message that is long enough.';
+    elements.privacyConsent.checked = true;
     
     // Trigger validation check for email
-    emailInput.dispatchEvent(new Event('invalid'));
+    elements.emailInput.dispatchEvent(new Event('invalid'));
     
     // Validate the form
-    const isValid = validateForm();
+    const isValid = validateForm(elements);
     
     // Check that the form is invalid
     expect(isValid).toBe(false);
@@ -257,22 +223,17 @@ describe('Contact Form Validation', () => {
   
   it('should detect bot submissions via honeypot field', () => {
     // Set up a valid form but with the honeypot field filled
-    const nameInput = document.getElementById('name') as HTMLInputElement;
-    const emailInput = document.getElementById('email') as HTMLInputElement;
-    const subjectInput = document.getElementById('subject') as HTMLSelectElement;
-    const messageInput = document.getElementById('message') as HTMLTextAreaElement;
-    const privacyConsent = document.getElementById('privacyConsent') as HTMLInputElement;
-    const botField = document.getElementById('bot-field') as HTMLInputElement;
+    const elements = getFormElements();
     
-    nameInput.value = 'John Doe';
-    emailInput.value = 'john@example.com';
-    subjectInput.value = 'Individual Therapy';
-    messageInput.value = 'This is a test message that is long enough.';
-    privacyConsent.checked = true;
-    botField.value = 'I am a bot'; // This should trigger the honeypot
+    elements.nameInput.value = 'John Doe';
+    elements.emailInput.value = 'john@example.com';
+    elements.subjectInput.value = 'Individual Therapy';
+    elements.messageInput.value = 'This is a test message that is long enough.';
+    elements.privacyConsent.checked = true;
+    elements.botField.value = 'I am a bot'; // This should trigger the honeypot
     
     // Validate the form
-    const isValid = validateForm();
+    const isValid = validateForm(elements);
     
     // Check that the form is invalid due to honeypot
     expect(isValid).toBe(false);
@@ -281,26 +242,26 @@ describe('Contact Form Validation', () => {
   it('should close success message when close button is clicked', () => {
     // Show the success message
     const successMessage = document.getElementById('successMessage') as HTMLDivElement;
-    successMessage.classList.remove('hidden');
+    successMessage.classList.remove(CLASSES.HIDDEN);
     
     // Get the close button and click it
     const closeSuccess = document.getElementById('closeSuccess') as HTMLButtonElement;
     closeSuccess.dispatchEvent(new Event('click'));
     
     // Check that the success message is hidden
-    expect(successMessage.classList.contains('hidden')).toBe(true);
+    expect(successMessage.classList.contains(CLASSES.HIDDEN)).toBe(true);
   });
   
   it('should close error message when close button is clicked', () => {
     // Show the error message
     const errorMessage = document.getElementById('errorMessage') as HTMLDivElement;
-    errorMessage.classList.remove('hidden');
+    errorMessage.classList.remove(CLASSES.HIDDEN);
     
     // Get the close button and click it
     const closeError = document.getElementById('closeError') as HTMLButtonElement;
     closeError.dispatchEvent(new Event('click'));
     
     // Check that the error message is hidden
-    expect(errorMessage.classList.contains('hidden')).toBe(true);
+    expect(errorMessage.classList.contains(CLASSES.HIDDEN)).toBe(true);
   });
 }); 

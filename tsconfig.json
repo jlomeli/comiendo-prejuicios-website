@@ -6,7 +6,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "types": ["astro/client"],
+    "types": ["astro/client", "vitest/globals"],
     "incremental": true,
     "baseUrl": ".",
     "paths": {
@@ -16,7 +16,10 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.astro"
+    "src/**/*.astro",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "vitest.config.ts"
   ],
   "exclude": ["node_modules", "dist", ".astro"]
 }

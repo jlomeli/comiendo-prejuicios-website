@@ -3,7 +3,7 @@ import { renderHTML } from '../utils/test-utils';
 import { navigation } from '../../src/config/navigation';
 
 describe('NavBar Component', () => {
-  it('should render navigation links correctly', async () => {
+  it('should render navigation links correctly', () => {
     // Create a simplified mock of the NavBar HTML based on navigation links
     const mockNavBarHTML = `
       <header class="fixed w-full top-0">

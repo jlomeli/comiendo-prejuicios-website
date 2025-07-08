@@ -19,8 +19,8 @@ export const navigation: NavigationProps = {
       href: '/#contact',
     },
     {
-      text: 'About Claudia',
-      href: '/about-claudia',
+      text: 'About Us',
+      href: '/about',
     },
   ],
 }; 

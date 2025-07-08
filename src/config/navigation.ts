@@ -3,8 +3,8 @@ import type { NavigationProps } from '../types/NavigationProps';
 export const navigation: NavigationProps = {
   links: [
     {
-      text: 'About',
-      href: '/#about',
+      text: 'About Me',
+      href: '/about',
     },
     {
       text: 'Services',
@@ -17,10 +17,6 @@ export const navigation: NavigationProps = {
     {
       text: 'Contact',
       href: '/#contact',
-    },
-    {
-      text: 'About Claudia',
-      href: '/about-claudia',
     },
   ],
 }; 

@@ -89,6 +89,9 @@ npm run test:coverage
   - `content/` - Markdown content collections
   - `layouts/` - Page layouts
   - `pages/` - Page components and routes
+    - `index.astro` - Home page
+    - `about.astro` - About page with team information
+    - `services/[slug].astro` - Dynamic service pages
   - `scripts/` - Client-side JavaScript
   - `styles/` - Global CSS styles
   - `types/` - TypeScript type definitions

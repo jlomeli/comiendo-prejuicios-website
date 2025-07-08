@@ -81,6 +81,36 @@ npm run test:coverage
 - Script tests validate client-side functionality
 - Mock implementations are used to isolate components from external dependencies
 
+## Accessibility
+
+This project is committed to maintaining WCAG 2.1 AA compliance. We have a comprehensive accessibility plan to ensure all components meet accessibility standards.
+
+### Accessibility Documentation
+
+- `docs/accessibility/a11y-compliance-plan.md` - Detailed accessibility implementation plan
+- `docs/accessibility/component-checklist.md` - Component-specific accessibility checklist
+- `docs/accessibility/testing-setup.md` - Guide for setting up accessibility testing tools
+
+### Key Accessibility Features
+
+- Semantic HTML structure
+- ARIA attributes for enhanced screen reader support
+- Keyboard navigation support
+- Focus management for interactive elements
+- Color contrast compliance
+- Logical heading hierarchy
+- Accessible form controls and error messages
+
+### Accessibility Testing
+
+```bash
+# Install accessibility testing dependencies
+npm install --save-dev axe-core @axe-core/playwright
+
+# Run accessibility tests
+npm run test:a11y
+```
+
 ## Project Structure
 
 - `src/` - Source code
@@ -100,6 +130,8 @@ npm run test:coverage
   - `icons/` - SVG icons
   - `images/` - Image assets
 - `tests/` - Test files
+- `docs/` - Documentation
+  - `accessibility/` - Accessibility documentation and guidelines
 
 ## License
 

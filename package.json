@@ -12,7 +12,8 @@
     "prepare": "husky",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:a11y": "vitest run tests/accessibility"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^5.1.0",

@@ -30,12 +30,20 @@ const about: AboutProps = {
         <h2 id="about-heading" class="text-4xl font-heading text-primary mb-4 font-semibold">About {name}</h2>
         <p class="text-secondary font-medium text-xl mb-6">{credentials}</p>
         <p class="text-lg text-neutral-dark mb-6">{about.intro}</p>
-        <a
-          href="/about"
-          class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-colors duration-300"
-        >
-          Learn More About Me
-        </a>
+        <div class="space-x-4">
+          <a
+            href="/about"
+            class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-colors duration-300"
+          >
+            Learn More About Me
+          </a>
+          <a
+            href="#contact"
+            class="inline-block bg-white text-primary border-2 border-primary font-bold py-3 px-8 rounded-full hover:bg-neutral-light transition-colors duration-300"
+          >
+            Contact Me
+          </a>
+        </div>
       </div>
     </div>
   </div>

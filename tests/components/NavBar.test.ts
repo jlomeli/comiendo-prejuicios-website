@@ -32,7 +32,7 @@ describe('NavBar Component', () => {
     
     // Verify that "About Us" link exists and "About Claudia" doesn't
     const aboutUsElements = Array.from(container.querySelectorAll('a'))
-      .filter(el => el.textContent?.trim() === 'About Us');
+      .filter(el => el.textContent?.trim() === 'About Me');
     expect(aboutUsElements.length).toBeGreaterThan(0);
     
     const aboutClaudiaElements = Array.from(container.querySelectorAll('a'))

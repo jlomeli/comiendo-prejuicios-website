@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderHTML } from '../utils/test-utils';
+import { renderHTML } from '../../utils/test-utils';
 
 describe('NavBar Component Accessibility', () => {
   it('should have proper ARIA attributes', () => {

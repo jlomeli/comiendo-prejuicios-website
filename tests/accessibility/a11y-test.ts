@@ -1,13 +1,18 @@
-import { describe, it } from 'vitest';
+import { test, expect } from 'vitest';
+import { chromium } from 'playwright';
+import AxeBuilder from '@axe-core/playwright';
 
-// This is a placeholder file for accessibility tests
-// To implement these tests, you'll need to install:
-// npm install --save-dev @axe-core/playwright playwright
-
-describe('Accessibility Tests', () => {
-  it('placeholder for automated accessibility tests', () => {
-    // This test will be implemented after installing the required dependencies
-    // The implementation will follow the pattern described in docs/accessibility/testing-setup.md
-    console.log('Accessibility tests will be implemented here');
-  });
-}); 
+test('should not have any automatically detectable accessibility issues', async () => {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  
+  // Navigate to your local dev server
+  await page.goto('http://localhost:4321');
+  
+  // Analyze the page with axe
+  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+  
+  expect(accessibilityScanResults.violations).toEqual([]);
+  
+  await browser.close();
+});

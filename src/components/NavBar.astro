@@ -41,28 +41,51 @@ const closeButtonSvg = `
   </svg>
 `;
 
+// Determine current page for aria-current
+const currentPath = Astro.url.pathname;
+
+// Function to determine if a link is the current page
+function isCurrentPage(href: string): boolean {
+  // For full page routes (not hash links)
+  if (!href.includes('#')) {
+    // Exact match for root or about page
+    return currentPath === href;
+  }
+  
+  // For hash links, don't highlight them initially
+  // They will be handled by the active-section.ts script
+  return false;
+}
 ---
 
-<header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-neutral-dark/10 shadow-sm">
+<header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-neutral-dark/10 shadow-sm" role="banner">
   <nav class="container mx-auto px-6 py-4" aria-label="Main navigation">
-    {/* Desktop Navigation */}
     <div class="flex items-center justify-between">
-      <a href="/" class="text-2xl font-heading font-bold text-primary hover:text-primary-dark transition-colors duration-200">
+      <a 
+        href="/" 
+        class="text-2xl font-heading font-bold text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
+        aria-label="Comiendo Prejuicios - Home"
+      >
         Comiendo Prejuicios
       </a>
 
       {/* Desktop Menu */}
-      <div class="hidden md:flex items-center space-x-8">
-        {links.map(link => (
-          <a
-            href={link.href}
-            data-nav-link
-            class="nav-link relative inline-block px-2 py-1 text-neutral-dark hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded group"
-          >
-            {link.text}
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-200 group-hover:w-full"></span>
-          </a>
-        ))}
+      <div class="hidden md:flex items-center space-x-8" role="menubar">
+        {links.map(link => {
+          const current = isCurrentPage(link.href);
+          return (
+            <a
+              href={link.href}
+              data-nav-link
+              class={`nav-link relative inline-block px-2 py-1 text-neutral-dark hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm group ${current ? 'text-primary' : ''}`}
+              role="menuitem"
+              aria-current={current ? "page" : undefined}
+            >
+              {link.text}
+              <span class={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200 ${current ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+            </a>
+          )
+        })}
       </div>
 
       {/* Mobile Menu Button */}
@@ -71,7 +94,9 @@ const closeButtonSvg = `
         type="button"
         aria-controls="mobile-menu"
         aria-expanded="false"
-        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-neutral-dark hover:text-primary hover:bg-neutral-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        aria-haspopup="true"
+        aria-label="Open main menu"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-neutral-dark hover:text-primary hover:bg-neutral-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <span class="sr-only">Open main menu</span>
         <Fragment set:html={menuButtonSvg} />
@@ -83,31 +108,44 @@ const closeButtonSvg = `
       id="mobile-menu"
       class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out md:hidden"
       aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Mobile navigation menu"
     >
       <button
         id="close-menu"
         type="button"
-        class="absolute top-4 right-4 rounded-md p-2 text-neutral-dark hover:text-primary hover:bg-neutral-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        aria-label="Close menu"
+        class="absolute top-4 right-4 rounded-md p-2 text-neutral-dark hover:text-primary hover:bg-neutral-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
         <span class="sr-only">Close menu</span>
         <Fragment set:html={closeButtonSvg} />
       </button>
 
-      <div class="pt-16 pb-4 px-4">
-        {links.map(link => (
-          <a
-            href={link.href}
-            data-nav-link
-            class="nav-link relative block w-full px-2 py-1 text-neutral-dark hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
-          >
-            {link.text}
-          </a>
-        ))}
+      <div class="pt-16 pb-4 px-4" role="menu">
+        {links.map(link => {
+          const current = isCurrentPage(link.href);
+          return (
+            <a
+              href={link.href}
+              data-nav-link
+              class={`nav-link relative block w-full px-2 py-3 mb-2 text-neutral-dark hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm ${current ? 'text-primary' : ''}`}
+              role="menuitem"
+              aria-current={current ? "page" : undefined}
+            >
+              {link.text}
+            </a>
+          )
+        })}
       </div>
     </div>
 
     {/* Menu Overlay */}
-    <div id="menu-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm hidden md:hidden"></div>
+    <div 
+      id="menu-overlay" 
+      class="fixed inset-0 bg-black/20 backdrop-blur-sm hidden md:hidden" 
+      aria-hidden="true"
+    ></div>
   </nav>
 </header>
 

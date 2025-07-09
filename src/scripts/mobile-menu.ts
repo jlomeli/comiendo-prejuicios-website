@@ -1,7 +1,7 @@
 // Constants
 export const SELECTORS = {
   MENU_BUTTON: '#menu-button',
-  MENU_CLOSE_BUTTON: '#close-menu', // Fixed selector to match actual HTML
+  MENU_CLOSE_BUTTON: '#close-menu',
   MOBILE_MENU: '#mobile-menu',
   MENU_OVERLAY: '#menu-overlay',
   FOCUSABLE_ELEMENTS: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
@@ -16,7 +16,7 @@ export const CLASSES = {
 };
 
 /**
- * Sets up the mobile menu functionality
+ * Sets up the mobile menu functionality with proper accessibility support
  * @param menuButton - The menu button element
  * @param closeButton - The close button element
  * @param mobileMenu - The mobile menu element
@@ -72,6 +72,13 @@ export function setupMobileMenu(
     }
   };
 
+  // Announce menu state to screen readers
+  const announceMenuState = (isOpen: boolean) => {
+    // Update ARIA attributes
+    menuButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+  };
+
   // Open the mobile menu
   const openMenu = () => {
     // Store the currently focused element
@@ -85,7 +92,7 @@ export function setupMobileMenu(
     document.body.classList.add(CLASSES.BODY_NO_SCROLL);
 
     // Update ARIA attributes
-    menuButton.setAttribute('aria-expanded', 'true');
+    announceMenuState(true);
 
     // Focus the close button
     closeButton.focus();
@@ -105,7 +112,7 @@ export function setupMobileMenu(
     document.body.classList.remove(CLASSES.BODY_NO_SCROLL);
 
     // Update ARIA attributes
-    menuButton.setAttribute('aria-expanded', 'false');
+    announceMenuState(false);
 
     // Remove keyboard event listeners
     document.removeEventListener('keydown', handleKeyDown);
@@ -129,6 +136,9 @@ export function setupMobileMenu(
       closeMenu();
     });
   });
+
+  // Initialize ARIA attributes
+  announceMenuState(false);
 
   // Return functions for testing
   return {

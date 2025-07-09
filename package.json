@@ -14,6 +14,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:a11y": "vitest run tests/accessibility",
+    "test:a11y:watch": "vitest tests/accessibility",
     "test:a11y:components": "vitest run tests/accessibility/navbar-a11y.test.ts tests/accessibility/navbar-axe.test.ts"
   },
   "devDependencies": {

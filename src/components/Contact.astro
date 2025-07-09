@@ -43,20 +43,20 @@ const socialMediaLinks = [
 ];
 ---
 
-<section id="contact" class="py-20 bg-gradient-to-br from-white to-primary/5">
+<section id="contact" class="py-20 bg-gradient-to-br from-white to-primary/5" aria-labelledby="contact-heading">
   <div class="container mx-auto px-6">
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-heading text-primary mb-12 font-semibold text-center">Contact Us</h2>
+      <h2 id="contact-heading" class="text-3xl md:text-4xl font-heading text-primary mb-12 font-semibold text-center">Contact Us</h2>
       <div class="grid md:grid-cols-2 gap-12">
         <div>
           <h3 class="text-xl font-medium text-neutral-dark mb-4">Our Information</h3>
           <address class="not-italic mb-4 text-neutral-dark">
-            <span aria-label="Address">{contact.address}</span><br />
-            Phone: <a href={`tel:${contact.phone}`} class="hover:text-primary transition-colors" aria-label="Phone number">{contact.phone}</a><br />
-            Email: <a href={`mailto:${contact.email}`} class="hover:text-primary transition-colors" aria-label="Email address">{contact.email}</a>
+            <span>{contact.address}</span><br />
+            Phone: <a href={`tel:${contact.phone}`} class="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">{contact.phone}</a><br />
+            Email: <a href={`mailto:${contact.email}`} class="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">{contact.email}</a>
           </address>
-          <p class="mb-2 text-neutral-dark"><strong>Hours:</strong> <span aria-label="Business hours">{contact.hours}</span></p>
-          <p class="mb-2 text-neutral-dark"><strong>Response Time:</strong> <span aria-label="Response time">{contact.responseTime}</span></p>
+          <p class="mb-2 text-neutral-dark"><strong>Hours:</strong> <span>{contact.hours}</span></p>
+          <p class="mb-2 text-neutral-dark"><strong>Response Time:</strong> <span>{contact.responseTime}</span></p>
           
           <!-- Social Media Links -->
           <div class="mt-6">
@@ -67,10 +67,10 @@ const socialMediaLinks = [
                   href={social.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  class="text-neutral-dark hover:text-primary transition-colors"
-                  aria-label={social.name}
+                  class="text-neutral-dark hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-full p-1"
+                  aria-label={`Visit our ${social.name} page`}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d={social.icon} />
                   </svg>
                 </a>
@@ -85,10 +85,9 @@ const socialMediaLinks = [
               href={contact.appointmentUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-md transition-colors"
-              aria-label="Schedule an appointment"
+              class="inline-flex items-center px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
               </svg>
               Book Online
@@ -107,7 +106,6 @@ const socialMediaLinks = [
                 allowfullscreen="" 
                 loading="lazy"
                 title="Office Location Map"
-                aria-label="Map showing our office location"
               ></iframe>
             </div>
           </div>
@@ -124,12 +122,12 @@ const socialMediaLinks = [
           <span class="block sm:inline"> Your message has been sent successfully. We'll get back to you soon.</span>
           <button 
             type="button" 
-            class="absolute top-0 right-0 px-4 py-3" 
+            class="absolute top-0 right-0 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500" 
             id="closeSuccess"
             aria-label="Close success message"
           >
             <span class="sr-only">Close</span>
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -146,12 +144,12 @@ const socialMediaLinks = [
           <span class="block sm:inline"> Something went wrong. Please try again later.</span>
           <button 
             type="button" 
-            class="absolute top-0 right-0 px-4 py-3" 
+            class="absolute top-0 right-0 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500" 
             id="closeError"
             aria-label="Close error message"
           >
             <span class="sr-only">Close</span>
-            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -166,7 +164,7 @@ const socialMediaLinks = [
           aria-labelledby="contactFormHeading"
           novalidate
         >
-          <div id="contactFormHeading" class="sr-only">Contact Form</div>
+          <h3 id="contactFormHeading" class="text-xl font-medium text-neutral-dark mb-4">Send Us a Message</h3>
           
           <!-- Hidden input for Netlify form name -->
           <input type="hidden" name="form-name" value="contact" />
@@ -181,14 +179,14 @@ const socialMediaLinks = [
           </div>
           
           <div>
-            <label for="name" class="block text-neutral-dark font-medium mb-1">Name <span class="text-red-600" aria-hidden="true">*</span></label>
+            <label for="name" class="block text-neutral-dark font-medium mb-1">Name <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only">required</span></label>
             <input 
               id="name" 
               name="name" 
               type="text" 
               required 
               minlength="2"
-              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary" 
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" 
               aria-required="true"
               aria-describedby="nameDescription nameError"
               autofocus
@@ -197,14 +195,14 @@ const socialMediaLinks = [
             <p id="nameError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">Please enter a valid name (at least 2 characters)</p>
           </div>
           <div>
-            <label for="email" class="block text-neutral-dark font-medium mb-1">Email <span class="text-red-600" aria-hidden="true">*</span></label>
+            <label for="email" class="block text-neutral-dark font-medium mb-1">Email <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only">required</span></label>
             <input 
               id="email" 
               name="email" 
               type="email" 
               required 
               pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
-              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary" 
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" 
               aria-required="true"
               aria-describedby="emailDescription emailError"
             />
@@ -218,8 +216,7 @@ const socialMediaLinks = [
               name="phone" 
               type="tel" 
               pattern="[\d\s\(\)\-\+]+"
-              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary" 
-              aria-required="false"
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" 
               aria-describedby="phoneDescription phoneError"
             />
             <div id="phoneDescription" class="text-xs text-neutral-dark/80 mt-1">Optional contact number</div>
@@ -227,32 +224,52 @@ const socialMediaLinks = [
           </div>
           
           <!-- Contact Preference -->
-          <div>
-            <label class="block text-neutral-dark font-medium mb-1">Preferred Contact Method</label>
+          <fieldset>
+            <legend class="block text-neutral-dark font-medium mb-1">Preferred Contact Method</legend>
             <div class="flex flex-wrap gap-4">
-              <label class="inline-flex items-center">
-                <input type="radio" name="contactPreference" value="email" class="form-radio text-primary focus:ring-primary" checked>
-                <span class="ml-2 text-neutral-dark">Email</span>
-              </label>
-              <label class="inline-flex items-center">
-                <input type="radio" name="contactPreference" value="phone" class="form-radio text-primary focus:ring-primary">
-                <span class="ml-2 text-neutral-dark">Phone</span>
-              </label>
-              <label class="inline-flex items-center">
-                <input type="radio" name="contactPreference" value="either" class="form-radio text-primary focus:ring-primary">
-                <span class="ml-2 text-neutral-dark">Either</span>
-              </label>
+              <div class="inline-flex items-center">
+                <input 
+                  type="radio" 
+                  id="contact-email" 
+                  name="contactPreference" 
+                  value="email" 
+                  class="form-radio text-primary focus:ring-primary focus:ring-offset-2" 
+                  checked
+                />
+                <label for="contact-email" class="ml-2 text-neutral-dark">Email</label>
+              </div>
+              <div class="inline-flex items-center">
+                <input 
+                  type="radio" 
+                  id="contact-phone" 
+                  name="contactPreference" 
+                  value="phone" 
+                  class="form-radio text-primary focus:ring-primary focus:ring-offset-2"
+                />
+                <label for="contact-phone" class="ml-2 text-neutral-dark">Phone</label>
+              </div>
+              <div class="inline-flex items-center">
+                <input 
+                  type="radio" 
+                  id="contact-either" 
+                  name="contactPreference" 
+                  value="either" 
+                  class="form-radio text-primary focus:ring-primary focus:ring-offset-2"
+                />
+                <label for="contact-either" class="ml-2 text-neutral-dark">Either</label>
+              </div>
             </div>
-          </div>
+          </fieldset>
           
           <div>
-            <label for="subject" class="block text-neutral-dark font-medium mb-1">Subject <span class="text-red-600" aria-hidden="true">*</span></label>
+            <label for="subject" class="block text-neutral-dark font-medium mb-1">Subject <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only">required</span></label>
             <select
               id="subject"
               name="subject"
               required
-              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary"
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               aria-required="true"
+              aria-describedby="subjectError"
             >
               <option value="">Please select...</option>
               <option value="general">General Inquiry</option>
@@ -265,14 +282,14 @@ const socialMediaLinks = [
           </div>
           
           <div>
-            <label for="message" class="block text-neutral-dark font-medium mb-1">Message <span class="text-red-600" aria-hidden="true">*</span></label>
+            <label for="message" class="block text-neutral-dark font-medium mb-1">Message <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only">required</span></label>
             <textarea 
               id="message" 
               name="message" 
               required 
               minlength="10"
               rows="4" 
-              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-primary focus:ring-2 focus:ring-primary focus:border-primary"
+              class="w-full rounded border border-neutral-dark/20 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               aria-required="true"
               aria-describedby="messageDescription messageError"
             ></textarea>
@@ -288,38 +305,47 @@ const socialMediaLinks = [
           
           <!-- Privacy Policy Consent -->
           <div class="mt-4">
-            <label class="flex items-start">
-              <input 
-                type="checkbox" 
-                name="privacyConsent" 
-                id="privacyConsent" 
-                required 
-                class="mt-1 form-checkbox text-primary focus:ring-primary"
-                aria-required="true"
-              />
-              <span class="ml-2 text-sm text-neutral-dark">
-                I consent to the processing of my personal data according to the 
-                <a href={privacyPolicyUrl} class="text-primary hover:underline" target="_blank">Privacy Policy</a>. 
-                <span class="text-red-600" aria-hidden="true">*</span>
-              </span>
-            </label>
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input 
+                  type="checkbox" 
+                  name="privacyConsent" 
+                  id="privacyConsent" 
+                  required 
+                  class="h-4 w-4 form-checkbox text-primary focus:ring-primary focus:ring-offset-2"
+                  aria-required="true"
+                  aria-describedby="privacyError"
+                />
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="privacyConsent" class="text-neutral-dark">
+                  I consent to the processing of my personal data according to the 
+                  <a href={privacyPolicyUrl} class="text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm" target="_blank">Privacy Policy</a>. 
+                  <span class="text-red-600" aria-hidden="true">*</span><span class="sr-only">required</span>
+                </label>
+              </div>
+            </div>
             <p id="privacyError" class="text-red-600 text-sm mt-1 hidden" aria-live="polite">You must agree to the privacy policy</p>
           </div>
           
           <!-- GDPR Compliance -->
           <div class="mt-2">
-            <label class="flex items-start">
-              <input 
-                type="checkbox" 
-                name="marketingConsent" 
-                id="marketingConsent" 
-                class="mt-1 form-checkbox text-primary focus:ring-primary"
-              />
-              <span class="ml-2 text-sm text-neutral-dark">
-                I would like to receive occasional emails about services, resources, and events. 
-                You can unsubscribe at any time. (Optional)
-              </span>
-            </label>
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input 
+                  type="checkbox" 
+                  name="marketingConsent" 
+                  id="marketingConsent" 
+                  class="h-4 w-4 form-checkbox text-primary focus:ring-primary focus:ring-offset-2"
+                />
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="marketingConsent" class="text-neutral-dark">
+                  I would like to receive occasional emails about services, resources, and events. 
+                  You can unsubscribe at any time. (Optional)
+                </label>
+              </div>
+            </div>
           </div>
           
           <div class="text-right">
@@ -327,7 +353,6 @@ const socialMediaLinks = [
               type="submit"
               id="submitButton"
               class="inline-block bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              aria-label="Submit contact form"
             >
               Send Message
             </button>

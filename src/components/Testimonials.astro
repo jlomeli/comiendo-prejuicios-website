@@ -51,7 +51,7 @@ function renderStars(rating: number) {
 
 <section id="testimonials" aria-labelledby="testimonials-heading" class="relative py-20 overflow-hidden">
   {/* Background Pattern with Parallax */}
-  <div class="absolute inset-0 pointer-events-none bg-neutral-light">
+  <div class="absolute inset-0 pointer-events-none bg-neutral-light" aria-hidden="true">
     <div class="parallax-bg absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 1px 1px, var(--tw-colors-primary) 1px, transparent 0); background-size: 40px 40px;"></div>
     <div class="parallax-bg absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-white to-transparent"></div>
     <div class="parallax-bg absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-white to-transparent"></div>
@@ -72,21 +72,23 @@ function renderStars(rating: number) {
     </div>
 
     {/* Filters and Controls */}
-    <div class="mb-8 space-y-4">
+    <div class="mb-8 space-y-4" role="search" aria-labelledby="filter-heading">
+      <h3 id="filter-heading" class="sr-only">Filter and sort testimonials</h3>
       <div class="flex flex-wrap gap-4 items-center justify-between">
         <div class="flex flex-wrap gap-4 items-center">
           {/* Role Filter */}
           <div class="relative">
+            <label for="role-filter" class="sr-only">Filter by role</label>
             <select 
+              id="role-filter"
               class="role-filter appearance-none bg-white border border-neutral-dark/20 rounded-lg py-2 pl-4 pr-10 text-neutral-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-              aria-label="Filter by role"
             >
               <option value="all">All Roles</option>
               {roles.map(role => (
                 <option value={role}>{role}</option>
               ))}
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark">
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark" aria-hidden="true">
               <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
               </svg>
@@ -95,16 +97,17 @@ function renderStars(rating: number) {
 
           {/* Rating Filter */}
           <div class="relative">
+            <label for="rating-filter" class="sr-only">Filter by minimum rating</label>
             <select 
+              id="rating-filter"
               class="rating-filter appearance-none bg-white border border-neutral-dark/20 rounded-lg py-2 pl-4 pr-10 text-neutral-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-              aria-label="Filter by minimum rating"
             >
               <option value="">Any Rating</option>
               <option value="5">5 Stars</option>
               <option value="4">4+ Stars</option>
               <option value="3">3+ Stars</option>
             </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark">
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark" aria-hidden="true">
               <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
               </svg>
@@ -114,16 +117,17 @@ function renderStars(rating: number) {
 
         {/* Sort Control */}
         <div class="relative">
+          <label for="sort-select" class="sr-only">Sort testimonials</label>
           <select 
+            id="sort-select"
             class="sort-select appearance-none bg-white border border-neutral-dark/20 rounded-lg py-2 pl-4 pr-10 text-neutral-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary"
-            aria-label="Sort testimonials"
           >
             <option value="date-desc">Newest First</option>
             <option value="date-asc">Oldest First</option>
             <option value="rating-desc">Highest Rated</option>
             <option value="rating-asc">Lowest Rated</option>
           </select>
-          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-neutral-dark" aria-hidden="true">
             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
             </svg>
@@ -132,11 +136,19 @@ function renderStars(rating: number) {
       </div>
 
       {/* Active Filters Display */}
-      <div class="active-filters flex flex-wrap gap-2"></div>
+      <div 
+        class="active-filters flex flex-wrap gap-2" 
+        role="status" 
+        aria-live="polite"
+      ></div>
     </div>
     
     {/* Testimonials Grid */}
-    <div class="testimonials-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto">
+    <div 
+      class="testimonials-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-auto"
+      role="list"
+      aria-label="Client testimonials"
+    >
       {testimonials.testimonials.map((testimonial, index) => (
         <div 
           class:list={[
@@ -153,6 +165,7 @@ function renderStars(rating: number) {
           data-rating={testimonial.rating}
           data-date={testimonial.date}
           style={`--card-index: ${index};`}
+          role="listitem"
         >
           {/* Quote Icon */}
           <svg 
@@ -178,7 +191,7 @@ function renderStars(rating: number) {
                   height="64"
                 />
               </div>
-              <div class="absolute -bottom-1 -right-1 bg-primary text-white rounded-full p-1 shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+              <div class="absolute -bottom-1 -right-1 bg-primary text-white rounded-full p-1 shadow-lg transform transition-transform duration-300 group-hover:scale-110" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
@@ -200,6 +213,7 @@ function renderStars(rating: number) {
           <div 
             class="flex gap-1 mb-4" 
             aria-label={`Rated ${testimonial.rating} out of 5 stars`}
+            role="img"
           >
             {renderStars(testimonial.rating).map((type) => (
               <svg 
@@ -225,8 +239,9 @@ function renderStars(rating: number) {
               {testimonial.quote}
             </p>
             <button 
-              class="expand-button mt-2 text-primary hover:text-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-2 -mx-2 transition-colors duration-200"
+              class="expand-button mt-2 text-primary hover:text-primary-dark focus:outline-none focus:ring-2 focus:ring-primary rounded-md px-2 -mx-2 transition-colors duration-200"
               aria-expanded="false"
+              aria-controls={`quote-content-${index}`}
             >
               <span class="button-text">Read more</span>
               <svg 
@@ -235,13 +250,14 @@ function renderStars(rating: number) {
                 fill="none" 
                 viewBox="0 0 24 24" 
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             {testimonial.date && (
               <footer class="text-sm text-secondary/80 mt-4 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                 </svg>
                 <time datetime={testimonial.date}>
@@ -258,7 +274,11 @@ function renderStars(rating: number) {
     </div>
 
     {/* Pagination Controls */}
-    <div class="pagination-controls flex justify-center items-center gap-4 mt-12"></div>
+    <div 
+      class="pagination-controls flex justify-center items-center gap-4 mt-12"
+      role="navigation"
+      aria-label="Testimonials pagination"
+    ></div>
   </div>
 </section>
 

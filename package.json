@@ -12,6 +12,8 @@
     "prepare": "husky",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:unit": "vitest run tests/unit",
+    "test:unit:watch": "vitest tests/unit",
     "test:coverage": "vitest run --coverage",
     "test:a11y": "vitest run tests/accessibility",
     "test:a11y:watch": "vitest tests/accessibility",

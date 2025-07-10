@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderHTML } from '../utils/test-utils';
+import { renderHTML } from '../../utils/test-utils';
 
 describe('Hero Component', () => {
   it('renders the hero title and subtitle', async () => {

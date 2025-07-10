@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { validateForm, setupCloseButtons, CLASSES } from '../../src/scripts/contact-form';
+import { validateForm, setupCloseButtons, CLASSES } from '../../../src/scripts/contact-form';
 
 // Setup mock DOM for contact form
 function setupContactFormDOM() {

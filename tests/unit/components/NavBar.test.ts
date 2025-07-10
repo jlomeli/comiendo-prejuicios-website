@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { renderHTML } from '../utils/test-utils';
-import { navigation } from '../../src/config/navigation';
+import { renderHTML } from '../../utils/test-utils';
+import { navigation } from '../../../src/config/navigation';
 
 describe('NavBar Component', () => {
   it('should render navigation links correctly', () => {

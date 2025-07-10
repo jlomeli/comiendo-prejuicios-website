@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { setupMobileMenu, CLASSES } from '../../src/scripts/mobile-menu';
+import { setupMobileMenu, CLASSES } from '../../../src/scripts/mobile-menu';
 
 // Mock DOM elements
 function setupDOM() {

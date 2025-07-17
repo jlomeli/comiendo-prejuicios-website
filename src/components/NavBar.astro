@@ -74,21 +74,18 @@ function isCurrentPage(href: string): boolean {
 
       {/* Desktop Menu */}
       <div class="hidden md:flex items-center space-x-8" role="menubar">
-        {links.map(link => {
-          const current = isCurrentPage(link.href);
-          return (
-            <a
-              href={link.href}
-              data-nav-link
-              class={`nav-link relative inline-block px-2 py-1 text-secondary hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm group ${current ? 'text-primary' : ''}`}
-              role="menuitem"
-              aria-current={current ? "page" : undefined}
-            >
-              {link.text}
-              <span class={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200 ${current ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-            </a>
-          )
-        })}
+        {links.map(link => (
+          <a
+            href={link.href}
+            data-nav-link
+            class={`nav-link relative inline-block px-2 py-1 text-secondary hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm group ${isCurrentPage(link.href) ? 'text-primary' : ''}`}
+            role="menuitem"
+            aria-current={isCurrentPage(link.href) ? "page" : undefined}
+          >
+            {link.text}
+            <span class={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200 ${isCurrentPage(link.href) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+          </a>
+        ))}
         <a 
           href="#contact" 
           class="btn btn-primary text-white px-5 py-2 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
@@ -110,7 +107,7 @@ function isCurrentPage(href: string): boolean {
         <span class="sr-only">Open main menu</span>
         <Fragment set:html={menuButtonSvg} />
       </button>
-    </div>
+    </nav>
 
     {/* Mobile Menu */}
     <div
@@ -132,20 +129,17 @@ function isCurrentPage(href: string): boolean {
       </button>
 
       <div class="pt-16 pb-4 px-4" role="menu">
-        {links.map(link => {
-          const current = isCurrentPage(link.href);
-          return (
-            <a
-              href={link.href}
-              data-nav-link
-              class={`nav-link relative block w-full px-2 py-3 mb-2 text-secondary hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm ${current ? 'text-primary' : ''}`}
-              role="menuitem"
-              aria-current={current ? "page" : undefined}
-            >
-              {link.text}
-            </a>
-          )
-        })}
+        {links.map(link => (
+          <a
+            href={link.href}
+            data-nav-link
+            class={`nav-link relative block w-full px-2 py-3 mb-2 text-secondary hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm ${isCurrentPage(link.href) ? 'text-primary' : ''}`}
+            role="menuitem"
+            aria-current={isCurrentPage(link.href) ? "page" : undefined}
+          >
+            {link.text}
+          </a>
+        ))}
         <a 
           href="#contact" 
           class="btn btn-primary text-white px-5 py-2 rounded-full mt-4 block text-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"

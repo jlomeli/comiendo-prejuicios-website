@@ -5,29 +5,39 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#4A90E2', // Base primary color
-          dark: '#357ABD',    // Darker shade for hover states
-          light: '#6BA5E7',   // Lighter shade for backgrounds
+          DEFAULT: '#7ECBC0', // Mint green - new primary color
+          dark: '#65AEA4',    // Darker mint for hover states
+          light: '#A6DED7',   // Lighter mint for backgrounds
         },
         secondary: {
-          DEFAULT: '#6B7280', // Base secondary color
-          dark: '#4B5563',    // Darker shade for hover states
-          light: '#9CA3AF',   // Lighter shade for backgrounds
+          DEFAULT: '#3A3A3A', // Dark gray for text
+          dark: '#2A2A2A',    // Darker gray for hover states
+          light: '#5A5A5A',   // Lighter gray for secondary text
         },
         accent: {
-          DEFAULT: '#F59E0B', // Base accent color
-          dark: '#D97706',    // Darker shade for hover states
-          light: '#FBBF24',   // Lighter shade for backgrounds
+          DEFAULT: '#F9C17C', // Soft orange/yellow accent
+          dark: '#E5A95F',    // Darker accent for hover states
+          light: '#FBD5A0',   // Lighter accent for backgrounds
         },
         neutral: {
-          DEFAULT: '#6B7280',
-          dark: '#374151',
-          light: '#F3F4F6',
+          DEFAULT: '#767676',
+          dark: '#3A3A3A',
+          light: '#F5F2EB', // Cream/beige background
+        },
+        background: {
+          DEFAULT: '#F9F6F0', // Main background color (cream/beige)
+          card: '#FFFFFF',    // Card background color
         }
       },
       fontFamily: {
         heading: ['Raleway', 'system-ui', 'sans-serif'],
         body: ['Open Sans', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        'xl': '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
+        '4xl': '3rem',
       },
     },
   },

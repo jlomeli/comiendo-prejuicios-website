@@ -164,7 +164,7 @@ function renderStars(rating: number) {
             {/* Quote Icon */}
             <svg 
               aria-hidden="true" 
-              class="absolute -top-6 -left-6 w-12 h-12 text-primary/30 transform -rotate-6 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"
+              class="absolute -top-6 -left-6 w-12 h-12 text-highlight-lavender transform -rotate-6 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12"
               xmlns="http://www.w3.org/2000/svg" 
               fill="currentColor" 
               viewBox="0 0 24 24"
@@ -228,7 +228,7 @@ function renderStars(rating: number) {
             </div>
 
             {/* Quote with Expandable Text */}
-            <blockquote class="testimonial-quote relative">
+            <blockquote class="testimonial-quote relative bg-highlight-lavender/10 rounded-2xl p-6 -mx-2" role="article">
               <p class="quote-content text-secondary/90 leading-relaxed">
                 {testimonial.quote}
               </p>

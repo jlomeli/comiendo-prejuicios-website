@@ -7,8 +7,24 @@
   --font-fallback: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --font-body: 'Open Sans', var(--font-fallback);
   --font-heading: 'Raleway', var(--font-fallback);
-  
-  /* Prevent layout shift during font load */
+  /* Color palette */
+  --color-background: #F9F6F1;
+  --color-surface: #FFFDFC;
+  --color-panel: #F3EBE3;
+  --color-primary: #40342E;
+  --color-secondary: #86786B;
+  --color-accent: #DFBFAA;
+  --color-accent-light: #FCE8DF;
+  --color-highlight-yellow: #FFD384;
+  --color-highlight-pink: #F4C7C3;
+  --color-highlight-lavender: #D9D6F2;
+  --color-highlight-green: #A3B18A;
+  --color-success: #9CBCA5;
+  --color-warning: #F4C684;
+  --color-error: #D08C8C;
+  --color-border: #E1D9D0;
+  --color-text-primary: #40342E;
+  --color-text-secondary: #6D645C;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,8 +35,8 @@
 /* Font loading states */
 body {
   font-family: var(--font-fallback);
-  background-color: #F9F6F0;
-  color: #3A3A3A;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
 }
 
 .fonts-loaded body {
@@ -30,7 +46,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-fallback);
   letter-spacing: 0.01em;
-  color: #3A3A3A;
+  color: var(--color-text-primary);
 }
 
 .fonts-loaded h1,
@@ -81,29 +97,29 @@ h3 {
 }
 
 .btn-primary {
-  @apply bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full;
+  @apply bg-primary text-white hover:bg-accent transition-colors duration-200;
 }
 
 .btn-secondary {
-  @apply bg-secondary hover:bg-secondary-dark text-white px-6 py-3 rounded-full;
+  @apply bg-secondary text-white hover:bg-primary transition-colors duration-200;
 }
 
 .btn-accent {
-  @apply bg-accent hover:bg-accent-dark text-secondary px-6 py-3 rounded-full;
+  @apply bg-accent text-primary hover:bg-accent-light transition-colors duration-200;
 }
 
 .btn-outline {
-  @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-full;
+  @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200;
 }
 
 /* Card styles */
 .card {
-  @apply bg-background-card rounded-2xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg;
+  @apply bg-surface rounded-2xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg;
 }
 
 /* Form element styles */
 input, textarea, select {
-  @apply rounded-full border border-neutral-dark/20 p-3 bg-white shadow-sm transition-shadow duration-200 w-full;
+  @apply rounded-full border border-border p-3 bg-white shadow-sm transition-shadow duration-200 w-full;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -112,7 +128,8 @@ input:focus, textarea:focus, select:focus {
 
 /* Selection styles */
 ::selection {
-  @apply bg-primary/20 text-secondary;
+  background: var(--color-accent-light);
+  color: var(--color-text-primary);
 }
 
 /* Content visibility optimization */
@@ -132,6 +149,12 @@ input:focus, textarea:focus, select:focus {
   max-height: none;
 }
 
+/* Enhanced focus indicators */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* Print styles */
 @media print {
   .no-print {
@@ -141,27 +164,33 @@ input:focus, textarea:focus, select:focus {
   a[href^="http"]:after {
     content: " (" attr(href) ")";
   }
+  
+  /* Ensure good contrast in print */
+  * {
+    color: black !important;
+    background: white !important;
+  }
 }
 
-/* Custom gradients */
+/* Gradients */
 .gradient-primary {
-  background: linear-gradient(135deg, #7ECBC0 0%, #A6DED7 100%);
+  background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 100%);
 }
 
 .gradient-overlay {
-  background: linear-gradient(to bottom, rgba(58, 58, 58, 0.4), rgba(58, 58, 58, 0.2));
+  background: linear-gradient(to bottom, rgba(64, 52, 46, 0.4), rgba(64, 52, 46, 0.2));
 }
 
-/* Mint background section */
+/* Panel and surface backgrounds */
 .mint-section {
-  background-color: #7ECBC0;
+  background-color: var(--color-panel);
   border-radius: 2rem;
   padding: 3rem 2rem;
 }
 
 /* Beige card */
 .beige-card {
-  background-color: #F5F2EB;
+  background-color: var(--color-surface);
   border-radius: 1.5rem;
   padding: 1.5rem;
 }
@@ -175,9 +204,9 @@ input:focus, textarea:focus, select:focus {
 }
 
 .flower-icon.yellow {
-  color: #F9C17C;
+  color: var(--color-highlight-yellow);
 }
 
 .flower-icon.purple {
-  color: #9B8ACB;
+  color: var(--color-highlight-lavender);
 }

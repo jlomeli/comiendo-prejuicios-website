@@ -4,30 +4,38 @@ export default {
   theme: {
     extend: {
       colors: {
+        background: {
+          DEFAULT: '#F9F6F1',
+        },
+        surface: '#FFFDFC',
+        panel: '#F3EBE3',
         primary: {
-          DEFAULT: '#7ECBC0', // Mint green - new primary color
-          dark: '#65AEA4',    // Darker mint for hover states
-          light: '#A6DED7',   // Lighter mint for backgrounds
+          DEFAULT: '#40342E',
+          dark: '#2C241E',
         },
         secondary: {
-          DEFAULT: '#3A3A3A', // Dark gray for text
-          dark: '#2A2A2A',    // Darker gray for hover states
-          light: '#5A5A5A',   // Lighter gray for secondary text
+          DEFAULT: '#86786B',
+          dark: '#6D645C',
         },
         accent: {
-          DEFAULT: '#F9C17C', // Soft orange/yellow accent
-          dark: '#E5A95F',    // Darker accent for hover states
-          light: '#FBD5A0',   // Lighter accent for backgrounds
+          DEFAULT: '#DFBFAA',
+          light: '#FCE8DF',
+          dark: '#B89B8A',
         },
-        neutral: {
-          DEFAULT: '#767676',
-          dark: '#3A3A3A',
-          light: '#F5F2EB', // Cream/beige background
+        highlight: {
+          yellow: '#FFD384',
+          pink: '#F4C7C3',
+          lavender: '#D9D6F2',
+          green: '#A3B18A',
         },
-        background: {
-          DEFAULT: '#F9F6F0', // Main background color (cream/beige)
-          card: '#FFFFFF',    // Card background color
-        }
+        success: '#9CBCA5',
+        warning: '#F4C684',
+        error: '#D08C8C',
+        border: '#E1D9D0',
+        text: {
+          primary: '#40342E',
+          secondary: '#6D645C',
+        },
       },
       fontFamily: {
         heading: ['Raleway', 'system-ui', 'sans-serif'],

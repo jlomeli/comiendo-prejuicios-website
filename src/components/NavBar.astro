@@ -58,34 +58,46 @@ function isCurrentPage(href: string): boolean {
 }
 ---
 
-<header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-neutral-dark/10 shadow-sm" role="banner">
-  <nav class="container mx-auto px-6 py-4" aria-label="Main navigation">
-    <div class="flex items-center justify-between">
+<header class="fixed w-full top-0 z-50 bg-background/90 backdrop-blur-sm border-b border-neutral-dark/10 shadow-sm" role="banner">
+  <div class="container mx-auto px-6 py-4">
+    <nav class="flex items-center justify-between" aria-label="Main navigation">
       <a 
         href="/" 
-        class="text-2xl font-heading font-bold text-primary hover:text-primary-dark transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
+        class="text-2xl font-heading font-bold text-secondary hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm flex items-center group"
         aria-label="Comiendo Prejuicios - Home"
       >
+        <div class="w-10 h-10 mr-3 rounded-full bg-accent-light flex items-center justify-center group-hover:bg-accent transition-colors duration-300">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2L9.5 8.5L2 9.5L7 14L5.5 22L12 18L18.5 22L17 14L22 9.5L14.5 8.5L12 2Z" fill="currentColor" class="text-primary group-hover:text-primary-dark transition-colors duration-300"/>
+          </svg>
+        </div>
         Comiendo Prejuicios
       </a>
 
       {/* Desktop Menu */}
       <div class="hidden md:flex items-center space-x-8" role="menubar">
-        {links.map(link => {
-          const current = isCurrentPage(link.href);
-          return (
-            <a
-              href={link.href}
-              data-nav-link
-              class={`nav-link relative inline-block px-2 py-1 text-neutral-dark hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm group ${current ? 'text-primary' : ''}`}
-              role="menuitem"
-              aria-current={current ? "page" : undefined}
-            >
-              {link.text}
-              <span class={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-200 ${current ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-            </a>
-          )
-        })}
+        {links.map(link => (
+          <a
+            href={link.href}
+            data-nav-link
+            class={`nav-link relative inline-block px-3 py-2 text-secondary hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg group ${isCurrentPage(link.href) ? 'text-primary bg-accent-light/50' : 'hover:bg-accent-light/30'}`}
+            role="menuitem"
+            aria-current={isCurrentPage(link.href) ? "page" : undefined}
+          >
+            {link.text}
+            <span class={`absolute bottom-0 left-0 h-0.5 bg-accent transition-all duration-300 ${isCurrentPage(link.href) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+            {/* Decorative highlight dot */}
+            <span class={`absolute -top-1 right-1 w-2 h-2 bg-highlight-yellow rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isCurrentPage(link.href) ? 'opacity-100' : ''}`} aria-hidden="true"></span>
+          </a>
+        ))}
+        <a 
+          href="#contact" 
+          class="btn btn-primary text-white px-6 py-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:bg-accent hover:text-primary hover:shadow-lg hover:-translate-y-0.5 relative overflow-hidden group"
+        >
+          <span class="relative z-10">Book Now</span>
+          {/* Decorative background element */}
+          <div class="absolute inset-0 bg-highlight-lavender/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" aria-hidden="true"></div>
+        </a>
       </div>
 
       {/* Mobile Menu Button */}
@@ -96,17 +108,17 @@ function isCurrentPage(href: string): boolean {
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Open main menu"
-        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-neutral-dark hover:text-primary hover:bg-neutral-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-secondary hover:text-primary hover:bg-accent-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all duration-200"
       >
         <span class="sr-only">Open main menu</span>
         <Fragment set:html={menuButtonSvg} />
       </button>
-    </div>
+    </nav>
 
     {/* Mobile Menu */}
     <div
       id="mobile-menu"
-      class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out md:hidden"
+      class="fixed inset-y-0 right-0 w-64 bg-background shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out md:hidden"
       aria-hidden="true"
       role="dialog"
       aria-modal="true"
@@ -116,27 +128,34 @@ function isCurrentPage(href: string): boolean {
         id="close-menu"
         type="button"
         aria-label="Close menu"
-        class="absolute top-4 right-4 rounded-md p-2 text-neutral-dark hover:text-primary hover:bg-neutral-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        class="absolute top-4 right-4 rounded-lg p-2 text-secondary hover:text-primary hover:bg-accent-light/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 transition-all duration-200"
       >
         <span class="sr-only">Close menu</span>
         <Fragment set:html={closeButtonSvg} />
       </button>
 
       <div class="pt-16 pb-4 px-4" role="menu">
-        {links.map(link => {
-          const current = isCurrentPage(link.href);
-          return (
-            <a
-              href={link.href}
-              data-nav-link
-              class={`nav-link relative block w-full px-2 py-3 mb-2 text-neutral-dark hover:text-primary transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm ${current ? 'text-primary' : ''}`}
-              role="menuitem"
-              aria-current={current ? "page" : undefined}
-            >
-              {link.text}
-            </a>
-          )
-        })}
+        {links.map(link => (
+          <a
+            href={link.href}
+            data-nav-link
+            class={`nav-link relative block w-full px-3 py-3 mb-2 text-secondary hover:text-primary transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg ${isCurrentPage(link.href) ? 'text-primary bg-accent-light/50' : 'hover:bg-accent-light/30'}`}
+            role="menuitem"
+            aria-current={isCurrentPage(link.href) ? "page" : undefined}
+          >
+            {link.text}
+            {/* Mobile decorative element */}
+            <div class={`absolute right-3 top-1/2 -translate-y-1/2 w-2 h-2 bg-highlight-pink rounded-full opacity-0 transition-opacity duration-300 ${isCurrentPage(link.href) ? 'opacity-100' : 'group-hover:opacity-10'}`} aria-hidden="true"></div>
+          </a>
+        ))}
+        <a 
+          href="#contact" 
+          class="btn btn-primary text-white px-6 py-3 rounded-full mt-6 block text-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 hover:bg-accent hover:text-primary hover:shadow-lg relative overflow-hidden group"
+        >
+          <span class="relative z-10">Book Now</span>
+          {/* Mobile decorative background */}
+          <div class="absolute inset-0 bg-highlight-lavender/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" aria-hidden="true"></div>
+        </a>
       </div>
     </div>
 
@@ -146,7 +165,7 @@ function isCurrentPage(href: string): boolean {
       class="fixed inset-0 bg-black/20 backdrop-blur-sm hidden md:hidden" 
       aria-hidden="true"
     ></div>
-  </nav>
+  </div>
 </header>
 
 <script>

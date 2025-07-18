@@ -251,12 +251,15 @@ class FAQAccordion {
     });
     
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          // Calculate the global index of this FAQ item in the DOM
+          const globalIndex = Array.from(faqItems).indexOf(entry.target as Element);
+          
           setTimeout(() => {
             entry.target.classList.remove('opacity-0', 'translate-y-8');
             entry.target.classList.add('opacity-100', 'translate-y-0');
-          }, index * 100);
+          }, globalIndex * 100);
         }
       });
     }, {

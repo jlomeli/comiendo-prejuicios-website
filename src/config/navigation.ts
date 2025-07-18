@@ -15,6 +15,10 @@ export const navigation: NavigationProps = {
       href: '/#testimonials',
     },
     {
+      text: 'FAQ',
+      href: '/#faq',
+    },
+    {
       text: 'Contact',
       href: '/#contact',
     },

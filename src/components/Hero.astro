@@ -29,10 +29,10 @@ const hero: HeroProps = {
 
   <div class="container mx-auto px-6 relative z-20 text-center text-white py-20 md:py-32">
     <div class="max-w-3xl mx-auto">
-      <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight" data-animation="fade-in">
-        {hero.title}
+      <h1 id="hero-heading" class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight drop-shadow-lg" data-animation="fade-in">
+        <span class="text-highlight-pink">{hero.title}</span>
       </h1>
-      <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto" data-animation="fade-in">
+      <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md" data-animation="fade-in">
         {hero.subtitle}
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center" data-animation="fade-in">

@@ -1,0 +1,154 @@
+---
+import type { FAQProps } from '../types/FAQProps';
+
+const faqData: FAQProps = {
+  title: "Frequently Asked Questions",
+  subtitle: "Find answers to common questions about our therapy services and approach",
+  faqs: [
+    {
+      question: "How do I schedule my first session?",
+      answer: "You can schedule your first session by contacting us through our contact form, calling us directly, or sending us an email. We'll work with you to find a convenient time and discuss what to expect in your initial consultation.",
+      category: "getting-started"
+    },
+    {
+      question: "What should I expect in my first session?",
+      answer: "Your first session is a consultation where we'll discuss your goals, concerns, and what brings you to therapy. It's a chance for us to get to know each other and for you to ask any questions. There's no pressure to share everything right away - we'll go at your pace.",
+      category: "getting-started"
+    },
+    {
+      question: "How long are therapy sessions?",
+      answer: "Standard therapy sessions are 50 minutes long. We also offer extended sessions (80 minutes) for couples therapy or when more time is needed. The frequency of sessions varies based on your needs and goals.",
+      category: "getting-started"
+    },
+    {
+      question: "What types of therapy do you offer?",
+      answer: "We offer individual therapy, couples counseling, family therapy, and teletherapy. Our approach is integrative, drawing from evidence-based modalities including Cognitive Behavioral Therapy (CBT), Emotionally Focused Therapy (EFT), and mindfulness-based approaches.",
+      category: "services-approach"
+    },
+    {
+      question: "Do you offer online/teletherapy?",
+      answer: "Yes, we offer secure teletherapy sessions through HIPAA-compliant video platforms. Online therapy can be just as effective as in-person sessions and offers flexibility for busy schedules. We can discuss which format works best for you.",
+      category: "services-approach"
+    },
+    {
+      question: "How do you approach different issues?",
+      answer: "We take a personalized, client-centered approach. Every person is unique, so we adapt our methods to your specific needs, goals, and preferences. We believe in creating a collaborative relationship where you feel heard, understood, and supported.",
+      category: "services-approach"
+    },
+    {
+      question: "What are your rates and payment options?",
+      answer: "Our session rates vary based on the type of therapy and session length. We accept cash, check, and major credit cards. Payment is due at the time of service. We also offer sliding scale fees for those who qualify.",
+      category: "practical-concerns"
+    },
+    {
+      question: "Do you accept insurance?",
+      answer: "We are out-of-network providers, which means we don't directly bill insurance companies. However, many insurance plans offer out-of-network benefits. We can provide you with a superbill that you can submit to your insurance for potential reimbursement.",
+      category: "practical-concerns"
+    },
+    {
+      question: "What is your cancellation policy?",
+      answer: "We require 24 hours notice for session cancellations. This allows us to offer the time slot to another client who may be waiting. Late cancellations or no-shows may be charged the full session fee.",
+      category: "practical-concerns"
+    }
+  ]
+};
+---
+
+<section id="faq" aria-labelledby="faq-heading" class="relative py-20 bg-panel overflow-hidden mx-6">
+  <div class="container mx-auto px-6 relative z-10">
+    {/* Section Header */}
+    <div class="text-center mb-16" data-animation="fade-in">
+      <h2 id="faq-heading" class="text-3xl md:text-4xl font-heading text-primary mb-6 font-bold">
+        {faqData.title}
+      </h2>
+      <p class="text-lg text-secondary max-w-2xl mx-auto">
+        {faqData.subtitle}
+      </p>
+    </div>
+
+    {/* FAQ Grid */}
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-4" role="list" aria-label="Frequently asked questions">
+        {faqData.faqs.map((faq, index) => (
+          <div 
+            class="faq-item bg-background rounded-2xl shadow-md border border-accent/20 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+            data-category={faq.category}
+            data-index={index}
+            role="listitem"
+          >
+            <button
+              class="faq-question w-full px-6 py-4 text-left bg-accent-light hover:bg-accent transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background flex items-center justify-between group"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${index}`}
+              data-faq-toggle
+            >
+              <h3 class="font-heading font-semibold text-primary text-lg group-hover:text-primary-dark transition-colors duration-200">
+                {faq.question}
+              </h3>
+              <svg 
+                class="faq-icon w-6 h-6 text-highlight-lavender transform transition-transform duration-300 flex-shrink-0 ml-4"
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div 
+              id={`faq-answer-${index}`}
+              class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+              aria-hidden="true"
+            >
+              <div class="px-6 py-4 text-secondary leading-relaxed">
+                {faq.answer}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  {/* Decorative Elements */}
+  <div class="absolute top-1/4 left-8 w-32 h-32 bg-highlight-yellow/20 rounded-full blur-2xl" aria-hidden="true"></div>
+  <div class="absolute bottom-1/4 right-8 w-24 h-24 bg-highlight-pink/20 rounded-full blur-2xl" aria-hidden="true"></div>
+  <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-highlight-lavender/20 rounded-full blur-xl" aria-hidden="true"></div>
+</section>
+
+<script>
+  import '../scripts/faq-accordion.ts';
+</script>
+
+<style>
+  /* FAQ specific styles */
+  .faq-item {
+    transform: translateZ(0); /* Optimize GPU rendering */
+  }
+
+  .faq-question:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Smooth accordion animation */
+  .faq-answer {
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Icon rotation for expanded state */
+  .faq-item[data-expanded="true"] .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item,
+    .faq-question,
+    .faq-answer,
+    .faq-icon {
+      transition: none;
+    }
+  }
+</style> 

@@ -178,7 +178,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .gradient-overlay {
-  background: linear-gradient(to bottom, rgba(64, 52, 46, 0.4), rgba(64, 52, 46, 0.2));
+  background: linear-gradient(to bottom, rgba(64, 52, 46, 0.7), rgba(64, 52, 46, 0.5));
 }
 
 /* Panel and surface backgrounds */
@@ -209,4 +209,21 @@ input:focus, textarea:focus, select:focus {
 
 .flower-icon.purple {
   color: var(--color-highlight-lavender);
+}
+
+/* Text color utilities for highlight colors */
+.text-highlight-yellow {
+  color: var(--color-highlight-yellow);
+}
+
+.text-highlight-lavender {
+  color: var(--color-highlight-lavender);
+}
+
+.text-highlight-pink {
+  color: var(--color-highlight-pink);
+}
+
+.text-highlight-green {
+  color: var(--color-highlight-green);
 }
